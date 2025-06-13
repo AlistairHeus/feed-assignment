@@ -24,18 +24,18 @@ const UIShowcase: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-muted p-8">
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             UI Components Showcase
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Foundational components for our feed assignment
           </p>
         </div>
 
-        <section className="bg-white rounded-lg shadow-md p-8">
+        <section className="bg-card rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-semibold mb-6">Button Component</h2>
 
           <div className="space-y-6">
@@ -120,8 +120,8 @@ const UIShowcase: React.FC = () => {
           </div>
         </section>
 
-        <section className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6">Input Component</h2>
+        <section className="bg-card rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Input Component</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
@@ -181,8 +181,8 @@ const UIShowcase: React.FC = () => {
           </div>
         </section>
 
-        <section className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6">Avatar Component</h2>
+        <section className="bg-card rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Avatar Component</h2>
 
           <div className="space-y-6">
             <div>
@@ -226,11 +226,11 @@ const UIShowcase: React.FC = () => {
           </div>
         </section>
 
-        <section className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6">Modal Component</h2>
+        <section className="bg-card rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Modal Component</h2>
 
           <div className="space-y-4">
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               Click the button below to test the modal component:
             </p>
 
@@ -242,17 +242,17 @@ const UIShowcase: React.FC = () => {
               <Modal.Header className="p-0"></Modal.Header>
 
               <Modal.Content className="p-2 rounded-3xl ">
-                <div className="bg-white rounded-3xl p-10">
+                <div className="bg-popover rounded-3xl p-10">
                   <div className="text-center ">
                     <div className="flex justify-center mb-6">
-                      <div className="   rounded-full flex items-center justify-center">
-                        <LogIn size={25} className="text-gray-900" />
+                      <div className="rounded-full flex items-center justify-center">
+                        <LogIn size={25} className="text-popover-foreground" />
                       </div>
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 ">
+                    <h2 className="text-xl font-bold text-popover-foreground">
                       Create an account to continue
                     </h2>
-                    <p className="text-sm text-neutral-400">
+                    <p className="text-sm text-muted-foreground">
                       Create an account to access all the features on this app
                     </p>
                   </div>
@@ -287,10 +287,10 @@ const UIShowcase: React.FC = () => {
                 </div>
               </Modal.Content>
 
-              <Modal.Footer className="p-4 pt-3 bg-gray-200">
-                <span className="text-gray-500 font-semibold text-xs">
+              <Modal.Footer className="p-4 pt-3">
+                <span className="text-muted-foreground font-semibold text-xs">
                   Do not have an account?{" "}
-                  <button className="text-indigo-600 hover:text-indigo-700 font-semibold text-xs">
+                  <button className="text-primary hover:text-primary/80 font-semibold text-xs">
                     Sign In
                   </button>
                 </span>
@@ -299,19 +299,65 @@ const UIShowcase: React.FC = () => {
           </div>
         </section>
 
-        <section className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6">Integration Example</h2>
-          <p className="text-gray-600 mb-6">
+        <section className="bg-card rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Custom Text Sizes (Tailwind v4)</h2>
+          
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-lg font-medium mb-4">Standard Text Sizes</h3>
+              <div className="space-y-2">
+                <p className="text-xxs">Extra Extra Small (text-xxs) - 10px</p>
+                <p className="text-xs">Extra Small (text-xs) - 12px</p>
+                <p className="text-sm">Small (text-sm) - 14px</p>
+                <p className="text-base">Base (text-base) - 16px</p>
+                <p className="text-lg">Large (text-lg) - 18px</p>
+                <p className="text-xl">Extra Large (text-xl) - 20px</p>
+                <p className="text-2xl">2X Large (text-2xl) - 24px</p>
+                <p className="text-3xl">3X Large (text-3xl) - 30px</p>
+                <p className="text-4xl">4X Large (text-4xl) - 36px</p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-medium mb-4">Semantic Text Sizes</h3>
+              <div className="space-y-2">
+                <p className="text-caption">Caption text (text-caption) - 12px</p>
+                <p className="text-body">Body text (text-body) - 14px</p>
+                <p className="text-body-lg">Large body text (text-body-lg) - 16px</p>
+                <p className="text-heading-sm">Small heading (text-heading-sm) - 18px</p>
+                <p className="text-heading">Heading (text-heading) - 20px</p>
+                <p className="text-heading-lg">Large heading (text-heading-lg) - 24px</p>
+                <p className="text-display">Display text (text-display) - 36px</p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-medium mb-4">Custom Colors</h3>
+              <div className="space-y-2">
+                <p className="text-primary">Primary color text</p>
+                <p className="text-secondary">Secondary color text</p>
+                <p className="text-accent">Accent color text</p>
+                <p className="text-danger">Danger color text</p>
+                <p className="text-warning">Warning color text</p>
+                <p className="text-success">Success color text</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-card rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Integration Example</h2>
+          <p className="text-muted-foreground mb-6">
             Here's how our components work together in a realistic scenario:
           </p>
 
-          <div className="max-w-md mx-auto border rounded-lg p-6">
+          <div className="max-w-md mx-auto border-border border rounded-lg p-6 bg-card">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <Avatar fallback="Demo User" />
                 <div>
-                  <h3 className="font-medium">Demo User</h3>
-                  <p className="text-sm text-gray-500">5 mins ago</p>
+                  <h3 className="font-medium text-card-foreground">Demo User</h3>
+                  <p className="text-sm text-muted-foreground">5 mins ago</p>
                 </div>
               </div>
               <Button variant="icon" size="sm">
@@ -319,7 +365,7 @@ const UIShowcase: React.FC = () => {
               </Button>
             </div>
 
-            <p className="text-gray-800 mb-4">
+            <p className="text-card-foreground mb-4">
               This is how our components look when integrated together in a real
               post card!
             </p>

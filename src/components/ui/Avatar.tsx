@@ -37,7 +37,7 @@ const Avatar: React.FC<AvatarProps> = ({
   };
 
   const baseClasses =
-    "inline-flex items-center justify-center rounded-full bg-gray-100 text-gray-600 font-medium overflow-hidden";
+    "inline-flex items-center justify-center rounded-full bg-muted text-muted-foreground font-medium overflow-hidden";
 
   const handleImageError = () => {
     setImageError(true);

@@ -55,7 +55,7 @@ const Modal: React.FC<ModalProps> & {
       onClick={handleBackdropClick}
     >
       <div 
-        className="relative w-full max-w-md bg-gray-200 rounded-4xl shadow-2xl overflow-hidden"
+        className="relative w-full max-w-lg bg-muted-dark rounded-4xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {children}
@@ -88,13 +88,13 @@ interface ModalContentProps {
 
 const ModalContent: React.FC<ModalContentProps> = ({ children, className }) => {
   return (
-    <div className={cn('px-8 pb-8', className)}>
+    <div className={cn('px-8 pb-8 ', className)}>
       {children}
     </div>
   );
 };
 
-// Modal Footer - gray background, for bottom actions/links
+// Modal Footer - neutral background, for bottom actions/links
 interface ModalFooterProps {
   children: React.ReactNode;
   className?: string;
@@ -102,7 +102,7 @@ interface ModalFooterProps {
 
 const ModalFooter: React.FC<ModalFooterProps> = ({ children, className }) => {
   return (
-    <div className={cn('bg-gray-50 px-8 py-6 text-center', className)}>
+    <div className={cn('bg-muted-dark px-8 py-6 text-center', className)}>
       {children}
     </div>
   );

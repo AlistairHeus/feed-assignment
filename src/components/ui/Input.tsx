@@ -27,9 +27,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   
   const variantClasses = {
     default: error 
-      ? 'bg-red-50 border border-red-200 focus:border-red-500 focus:bg-white' 
-      : 'bg-gray-100 border-0 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-20',
-    error: 'bg-red-50 border border-red-200 focus:border-red-500 focus:bg-white'
+      ? 'bg-destructive/10 border border-destructive/20 focus:border-destructive focus:bg-background' 
+      : 'bg-muted border-0 focus:bg-background focus:ring-2 focus:ring-ring focus:ring-opacity-20',
+    error: 'bg-destructive/10 border border-destructive/20 focus:border-destructive focus:bg-background'
   };
   
   const appliedClasses = error ? variantClasses.error : variantClasses.default;
@@ -37,7 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-xs font-bold text-gray-900 mb-1">
+        <label className="block text-xs font-bold text-foreground mb-1">
           {label}
         </label>
       )}
@@ -58,7 +58,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
         {isPassword && (
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-gray-600"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-foreground"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -71,13 +71,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
       </div>
       
       {error && (
-        <p className="mt-1 text-sm text-red-600">
+        <p className="mt-1 text-sm text-destructive">
           {error}
         </p>
       )}
       
       {helperText && !error && (
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-muted-foreground">
           {helperText}
         </p>
       )}
