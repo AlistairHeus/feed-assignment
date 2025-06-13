@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { X } from "lucide-react";
-import Button from "./Button";
 
 export interface ModalProps {
   isOpen: boolean;
@@ -12,6 +10,7 @@ export interface ModalProps {
   showCloseButton?: boolean;
   closeOnBackdropClick?: boolean;
   size?: "sm" | "md" | "lg";
+  icon?: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -20,9 +19,10 @@ const Modal: React.FC<ModalProps> = ({
   title,
   subtitle,
   children,
-  showCloseButton = true,
+
   closeOnBackdropClick = true,
   size = "md",
+  icon,
 }) => {
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -33,6 +33,7 @@ const Modal: React.FC<ModalProps> = ({
 
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
+
       document.body.style.overflow = "hidden";
     }
 
@@ -58,45 +59,48 @@ const Modal: React.FC<ModalProps> = ({
 
   const modalContent = (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4  backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40"
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative w-full ${sizeClasses[size]} bg-white rounded-lg shadow-xl transform transition-all`}
+        className={`relative w-full ${sizeClasses[size]} bg-gray-200 rounded-3xl shadow-2xl transform transition-all`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        {(title || showCloseButton) && (
-          <div className="flex items-center justify-between p-6 pb-4">
-            <div className="flex-1">
-              {title && (
-                <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
-              )}
-              {subtitle && (
-                <p className="mt-1 text-sm text-gray-500">{subtitle}</p>
-              )}
-            </div>
-
-            {showCloseButton && (
-              <Button
-                variant="icon"
-                size="sm"
-                onClick={onClose}
-                className="ml-4 text-gray-400 hover:text-gray-600"
-              >
-                <X size={16} />
-              </Button>
+        {/* Content */}
+        <div className="p-2">
+          <div className="p-4 rounded-3xl bg-white">
+            {/* Icon */}
+            {icon && (
+              <div className="flex justify-center mb-6">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center">
+                  {icon}
+                </div>
+              </div>
             )}
-          </div>
-        )}
 
-        <div className={`px-6 ${title || showCloseButton ? "pb-6" : "py-6"}`}>
-          {children}
+            {/* Header */}
+            {(title || subtitle) && (
+              <div className="text-center mb-8">
+                {title && (
+                  <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                    {title}
+                  </h2>
+                )}
+                {subtitle && (
+                  <p className="text-sm text-gray-500">{subtitle}</p>
+                )}
+              </div>
+            )}
+
+            {/* Main content */}
+            {children}
+          </div>
         </div>
       </div>
     </div>
   );
 
+  // Using portals here to avoid common and annoying z-index issues
   return createPortal(modalContent, document.body);
 };
 

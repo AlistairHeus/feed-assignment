@@ -241,11 +241,12 @@ const UIShowcase: React.FC = () => {
             <Modal
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
-              title="Sign in to continue"
-              subtitle="Sign in to access all the features on this app"
+              title="Create an account to continue"
+              subtitle="Create an account to access all the features on this app"
               size="md"
+              icon={<LogIn size={20} className="text-gray-600" />}
             >
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <Input
                   label="Email or username"
                   type="email"
@@ -258,27 +259,26 @@ const UIShowcase: React.FC = () => {
                   placeholder="Enter your password"
                 />
 
-                <div className="flex gap-3 pt-4">
-                  <Button
-                    variant="primary"
-                    className="flex-1"
-                    onClick={() => setIsModalOpen(false)}
-                  >
-                    Sign In
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() => setIsModalOpen(false)}
-                  >
-                    Cancel
-                  </Button>
-                </div>
+                <Input
+                  label="Repeat password"
+                  variant="password"
+                  placeholder="Enter your password again"
+                />
 
-                <div className="text-center pt-2">
+                <Button
+                  variant="primary"
+                  className="w-full"
+                  size="lg"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Sign Up
+                </Button>
+
+                <div className="text-center">
                   <span className="text-sm text-gray-600">
-                    Do not have an account?{" "}
+                    Already have an account?{" "}
                     <button className="text-blue-600 hover:text-blue-700 font-medium">
-                      Sign Up
+                      Sign In
                     </button>
                   </span>
                 </div>

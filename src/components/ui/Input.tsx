@@ -22,13 +22,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   const isPassword = variant === 'password' || type === 'password';
   const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
-  const baseClasses = 'w-full px-3 py-2 border rounded-md text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'w-full px-4 py-3 rounded-md text-sm transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variantClasses = {
     default: error 
-      ? 'border-red-300 focus:border-red-500 focus:ring-red-500' 
-      : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500',
-    error: 'border-red-300 focus:border-red-500 focus:ring-red-500'
+      ? 'bg-red-50 border border-red-200 focus:border-red-500 focus:bg-white' 
+      : 'bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20',
+    error: 'bg-red-50 border border-red-200 focus:border-red-500 focus:bg-white'
   };
   
   const appliedClasses = error ? variantClasses.error : variantClasses.default;
