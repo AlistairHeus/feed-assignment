@@ -1,136 +1,146 @@
+import { Heart, MessageCircle, Share, X } from "lucide-react";
 import React from "react";
+import Button from "./components/ui/Button";
 import { AuthProvider } from "./context/AuthContext";
-import { useAuth } from "./hooks/useAuth";
 
-const AuthTest: React.FC = () => {
-  const {
-    authState,
-    modalState,
-    login,
-    logout,
-    openModal,
-    closeModal,
-    switchModal,
-  } = useAuth();
-
-  const handleTestLogin = async () => {
-    const success = await login({
-      email: "demo@example.com",
-      password: "password123",
-    });
-    console.log("Login success:", success);
-  };
-
-  const handleTestLoginFail = async () => {
-    const success = await login({
-      email: "wrong@email.com",
-      password: "wrongpass",
-    });
-    console.log("Login success:", success);
-  };
-
+const ButtonShowcase: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-6">Auth Context Test</h1>
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
+        <h1 className="text-3xl font-bold mb-8 text-center">
+          Button Component Showcase
+        </h1>
 
-        <div className="mb-6 p-4 bg-gray-50 rounded">
-          <h2 className="font-semibold mb-2">Auth State:</h2>
-          <p>
-            <strong>Authenticated:</strong>{" "}
-            {authState.isAuthenticated ? "Yes" : "No"}
-          </p>
-          <p>
-            <strong>Loading:</strong> {authState.isLoading ? "Yes" : "No"}
-          </p>
-          <p>
-            <strong>User:</strong>{" "}
-            {authState.user ? authState.user.username : "None"}
-          </p>
-          <p>
-            <strong>Error:</strong> {authState.error || "None"}
-          </p>
-        </div>
-
-        <div className="mb-6 p-4 bg-gray-50 rounded">
-          <h2 className="font-semibold mb-2">Modal State:</h2>
-          <p>
-            <strong>Open:</strong> {modalState.isOpen ? "Yes" : "No"}
-          </p>
-          <p>
-            <strong>Type:</strong> {modalState.type}
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          {!authState.isAuthenticated ? (
-            <>
-              <button
-                onClick={handleTestLogin}
-                disabled={authState.isLoading}
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mr-2 disabled:opacity-50"
-              >
-                {authState.isLoading
-                  ? "Logging in..."
-                  : "Test Login (demo@example.com)"}
-              </button>
-
-              <button
-                onClick={handleTestLoginFail}
-                disabled={authState.isLoading}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mr-2 disabled:opacity-50"
-              >
-                Test Failed Login
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={logout}
-              className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded mr-2"
-            >
-              Logout
-            </button>
-          )}
-
-          <div className="mt-4">
-            <button
-              onClick={() => openModal("signin")}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
-            >
-              Open Sign In Modal
-            </button>
-
-            <button
-              onClick={() => openModal("signup")}
-              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded mr-2"
-            >
-              Open Sign Up Modal
-            </button>
-
-            {modalState.isOpen && (
-              <>
-                <button
-                  onClick={switchModal}
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded mr-2"
-                >
-                  Switch Modal
-                </button>
-
-                <button
-                  onClick={closeModal}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
-                >
-                  Close Modal
-                </button>
-              </>
-            )}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">Primary Buttons</h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary" size="sm">
+              Small Primary
+            </Button>
+            <Button variant="primary" size="md">
+              Medium Primary
+            </Button>
+            <Button variant="primary" size="lg">
+              Large Primary
+            </Button>
+            <Button variant="primary" loading>
+              Loading Primary
+            </Button>
+            <Button variant="primary" disabled>
+              Disabled Primary
+            </Button>
           </div>
         </div>
 
-        <div className="mt-6 p-4 bg-blue-50 rounded">
-          <h3 className="font-semibold mb-2">Test Accounts:</h3>
-          <p>• demo@example.com / password123</p>
-          <p>• test@user.com / testpass</p>
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">Secondary Buttons</h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="secondary" size="sm">
+              Small Secondary
+            </Button>
+            <Button variant="secondary" size="md">
+              Medium Secondary
+            </Button>
+            <Button variant="secondary" size="lg">
+              Large Secondary
+            </Button>
+            <Button variant="secondary" loading>
+              Loading Secondary
+            </Button>
+            <Button variant="secondary" disabled>
+              Disabled Secondary
+            </Button>
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">Ghost Buttons</h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="ghost" size="sm">
+              Small Ghost
+            </Button>
+            <Button variant="ghost" size="md">
+              Medium Ghost
+            </Button>
+            <Button variant="ghost" size="lg">
+              Large Ghost
+            </Button>
+            <Button variant="ghost" loading>
+              Loading Ghost
+            </Button>
+            <Button variant="ghost" disabled>
+              Disabled Ghost
+            </Button>
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">Icon Buttons</h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="icon" size="sm">
+              <X size={16} />
+            </Button>
+            <Button variant="icon" size="md">
+              <Heart size={20} />
+            </Button>
+            <Button variant="icon" size="lg">
+              <Share size={24} />
+            </Button>
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">
+            Design-Specific Examples
+          </h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary" size="lg" className="w-full max-w-sm">
+              Sign In
+            </Button>
+
+            <Button variant="ghost" size="md">
+              Login
+            </Button>
+
+            <Button variant="secondary" size="sm">
+              <Heart size={16} className="mr-2" />
+              Like
+            </Button>
+
+            <Button variant="secondary" size="sm">
+              <MessageCircle size={16} className="mr-2" />
+              Comment
+            </Button>
+
+            <Button variant="secondary" size="sm">
+              <Share size={16} className="mr-2" />
+              Share
+            </Button>
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">Interactive Test</h2>
+          <div className="flex flex-wrap gap-4">
+            <Button
+              variant="primary"
+              onClick={() => alert("Primary button clicked!")}
+            >
+              Click Me (Primary)
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => alert("Secondary button clicked!")}
+            >
+              Click Me (Secondary)
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => alert("Ghost button clicked!")}
+            >
+              Click Me (Ghost)
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -140,7 +150,7 @@ const AuthTest: React.FC = () => {
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <AuthTest />
+      <ButtonShowcase />
     </AuthProvider>
   );
 };
