@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from "lucide-react";
+import { cn } from "../../utils/cn";
 
 export interface AvatarProps {
   src?: string;
@@ -59,14 +60,15 @@ const Avatar: React.FC<AvatarProps> = ({
   const showFallback = fallback && (!src || imageError || !imageLoaded);
 
   return (
-    <div className={`${baseClasses} ${sizeClasses[size]} ${className}`}>
+    <div className={cn(baseClasses, sizeClasses[size], className)}>
       {src && !imageError && (
         <img
           src={src}
           alt={alt || "Avatar"}
-          className={`w-full h-full object-cover ${
+          className={cn(
+            "w-full h-full object-cover",
             imageLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          )}
           onError={handleImageError}
           onLoad={handleImageLoad}
         />

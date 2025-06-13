@@ -1,55 +1,47 @@
-import React, { useEffect } from "react";
-import { createPortal } from "react-dom";
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { cn } from '../../utils/cn';
 
+// Main Modal Root Component - just handles backdrop and basic container
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title?: string;
-  subtitle?: string;
   children: React.ReactNode;
-  showCloseButton?: boolean;
   closeOnBackdropClick?: boolean;
-  size?: "sm" | "md" | "lg";
-  icon?: React.ReactNode;
+  closeOnEscape?: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({
+const Modal: React.FC<ModalProps> & {
+  Header: typeof ModalHeader;
+  Content: typeof ModalContent;
+  Footer: typeof ModalFooter;
+} = ({
   isOpen,
   onClose,
-  title,
-  subtitle,
   children,
-
   closeOnBackdropClick = true,
-  size = "md",
-  icon,
+  closeOnEscape = true
 }) => {
+  // Handle escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isOpen) {
+      if (event.key === 'Escape' && isOpen && closeOnEscape) {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-
-      document.body.style.overflow = "hidden";
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, closeOnEscape]);
 
   if (!isOpen) return null;
-
-  const sizeClasses = {
-    sm: "max-w-sm",
-    md: "max-w-md",
-    lg: "max-w-lg",
-  };
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget && closeOnBackdropClick) {
@@ -58,50 +50,67 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   const modalContent = (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40"
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40"
       onClick={handleBackdropClick}
     >
-      <div
-        className={`relative w-full ${sizeClasses[size]} bg-gray-200 rounded-3xl shadow-2xl transform transition-all`}
+      <div 
+        className="relative w-full max-w-md bg-gray-200 rounded-4xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Content */}
-        <div className="p-2">
-          <div className="p-4 rounded-3xl bg-white">
-            {/* Icon */}
-            {icon && (
-              <div className="flex justify-center mb-6">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center">
-                  {icon}
-                </div>
-              </div>
-            )}
-
-            {/* Header */}
-            {(title || subtitle) && (
-              <div className="text-center mb-8">
-                {title && (
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                    {title}
-                  </h2>
-                )}
-                {subtitle && (
-                  <p className="text-sm text-gray-500">{subtitle}</p>
-                )}
-              </div>
-            )}
-
-            {/* Main content */}
-            {children}
-          </div>
-        </div>
+        {children}
       </div>
     </div>
   );
 
-  // Using portals here to avoid common and annoying z-index issues
   return createPortal(modalContent, document.body);
 };
+
+// Modal Header - white background, for title and icon
+interface ModalHeaderProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+const ModalHeader: React.FC<ModalHeaderProps> = ({ children, className }) => {
+  return (
+    <div className={cn('p-8 text-center', className)}>
+      {children}
+    </div>
+  );
+};
+
+// Modal Content - white background, for main form content
+interface ModalContentProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const ModalContent: React.FC<ModalContentProps> = ({ children, className }) => {
+  return (
+    <div className={cn('px-8 pb-8', className)}>
+      {children}
+    </div>
+  );
+};
+
+// Modal Footer - gray background, for bottom actions/links
+interface ModalFooterProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const ModalFooter: React.FC<ModalFooterProps> = ({ children, className }) => {
+  return (
+    <div className={cn('bg-gray-50 px-8 py-6 text-center', className)}>
+      {children}
+    </div>
+  );
+};
+
+// Attach subcomponents
+Modal.Header = ModalHeader;
+Modal.Content = ModalContent;
+Modal.Footer = ModalFooter;
 
 export default Modal;

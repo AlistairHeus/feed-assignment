@@ -238,51 +238,63 @@ const UIShowcase: React.FC = () => {
               Open Modal
             </Button>
 
-            <Modal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              title="Create an account to continue"
-              subtitle="Create an account to access all the features on this app"
-              size="md"
-              icon={<LogIn size={20} className="text-gray-600" />}
-            >
-              <div className="space-y-6">
-                <Input
-                  label="Email or username"
-                  type="email"
-                  placeholder="Enter your email or username"
-                />
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+              <Modal.Header className="p-0"></Modal.Header>
 
-                <Input
-                  label="Password"
-                  variant="password"
-                  placeholder="Enter your password"
-                />
+              <Modal.Content className="p-2 rounded-3xl ">
+                <div className="bg-white rounded-3xl p-10">
+                  <div className="text-center py-4 border border-gray-800">
+                    <div className="flex justify-center mb-6">
+                      <div className="   rounded-full flex items-center justify-center">
+                        <LogIn size={20} className="text-gray-600" />
+                      </div>
+                    </div>
+                    <h2 className="text-lg font-bold text-gray-900 mb-1">
+                      Create an account to continue
+                    </h2>
+                    <p className="text-xs text-gray-500">
+                      Create an account to access all the features on this app
+                    </p>
+                  </div>
+                  <div className="">
+                    <Input
+                      label="Email or username"
+                      type="email"
+                      placeholder="Enter your email or username"
+                    />
 
-                <Input
-                  label="Repeat password"
-                  variant="password"
-                  placeholder="Enter your password again"
-                />
+                    <Input
+                      label="Password"
+                      variant="password"
+                      placeholder="Enter your password"
+                    />
 
-                <Button
-                  variant="primary"
-                  className="w-full"
-                  size="lg"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Sign Up
-                </Button>
+                    <Input
+                      label="Repeat password"
+                      variant="password"
+                      placeholder="Enter your password again"
+                    />
 
-                <div className="text-center">
-                  <span className="text-sm text-gray-600">
-                    Already have an account?{" "}
-                    <button className="text-blue-600 hover:text-blue-700 font-medium">
-                      Sign In
-                    </button>
-                  </span>
+                    <Button
+                      variant="primary"
+                      className="w-full"
+                      size="lg"
+                      onClick={() => setIsModalOpen(false)}
+                    >
+                      Sign Up
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              </Modal.Content>
+
+              <Modal.Footer className="p-4 bg-gray-200">
+                <span className="text-sm text-gray-600">
+                  Already have an account?{" "}
+                  <button className="text-blue-600 hover:text-blue-700 font-medium">
+                    Sign In
+                  </button>
+                </span>
+              </Modal.Footer>
             </Modal>
           </div>
         </section>

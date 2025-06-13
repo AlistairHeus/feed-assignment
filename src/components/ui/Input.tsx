@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import { cn } from '../../utils/cn';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -45,7 +46,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
         <input
           ref={ref}
           type={inputType}
-          className={`${baseClasses} ${appliedClasses} ${isPassword ? 'pr-10' : ''} ${className}`}
+          className={cn(
+            baseClasses,
+            appliedClasses,
+            isPassword && 'pr-10',
+            className
+          )}
           {...props}
         />
         

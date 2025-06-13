@@ -1,5 +1,6 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
+import { cn } from '../../utils/cn';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'icon';
@@ -42,7 +43,7 @@ const Button: React.FC<ButtonProps> = ({
   
   return (
     <button
-      className={`${baseClasses} ${variantClasses[variant]} ${appliedSizeClasses} ${className}`}
+      className={cn(baseClasses, variantClasses[variant], appliedSizeClasses, className)}
       disabled={disabled || loading}
       {...props}
     >
