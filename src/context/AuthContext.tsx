@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import { TEST_ACCOUNTS } from "../mock-data/test-accounts.mock-data";
 import type {
   AuthContextType,
   AuthState,
@@ -6,7 +7,6 @@ import type {
   ModalState,
   User,
 } from "../types/auth.types";
-import { TEST_ACCOUNTS } from "../mock-data/test-accounts.mock-data";
 
 const initialAuthState: AuthState = {
   user: null,
@@ -20,7 +20,9 @@ const initialModalState: ModalState = {
   type: "signin",
 };
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -118,12 +120,4 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
-};
-
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
 };
