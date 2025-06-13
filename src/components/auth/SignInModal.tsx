@@ -1,4 +1,6 @@
 import { LogIn } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Modal from "../ui/Modal";
@@ -9,6 +11,21 @@ type SignInModalProps = {
 };
 
 const SignInModal = (props: SignInModalProps) => {
+  const { login, authState, switchModal } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = async () => {
+    const success = await login({ email, password });
+    if (success) {
+      setEmail("");
+      setPassword("");
+    }
+  };
+
+  const handleSignUpClick = () => {
+    switchModal();
+  };
   return (
     <Modal
       isOpen={props.isOpen}
@@ -36,21 +53,30 @@ const SignInModal = (props: SignInModalProps) => {
               label="Email or username"
               type="email"
               placeholder="Enter your email or username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <Input
               label="Password"
               variant="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+
+            {authState.error && (
+              <p className="text-red-500 text-sm text-center">{authState.error}</p>
+            )}
 
             <Button
               variant="primary"
               className="w-full text-sm font-medium"
               size="lg"
-              onClick={props.onClose}
+              onClick={handleSignIn}
+              disabled={authState.isLoading}
             >
-              Sign In
+              {authState.isLoading ? "Signing In..." : "Sign In"}
             </Button>
           </div>
         </div>
@@ -62,6 +88,7 @@ const SignInModal = (props: SignInModalProps) => {
           <Button
             variant="ghost"
             className="text-primary hover:text-primary/80 font-semibold text-sm p-0 h-auto"
+            onClick={handleSignUpClick}
           >
             Sign Up
           </Button>

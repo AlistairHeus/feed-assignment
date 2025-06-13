@@ -1,4 +1,6 @@
 import { LogIn } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Modal from "../ui/Modal";
@@ -9,6 +11,27 @@ type SignUpModalProps = {
 };
 
 const SignUpModal = (props: SignUpModalProps) => {
+  const { authState, switchModal } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSignUp = async () => {
+    setError("");
+    
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    // For now, just show an alert since we don't have signup implementation
+    alert("Sign up functionality not fully implemented yet. Please use the test accounts to sign in.");
+  };
+
+  const handleSignInClick = () => {
+    switchModal();
+  };
   return (
     <Modal
       isOpen={props.isOpen}
@@ -36,27 +59,38 @@ const SignUpModal = (props: SignUpModalProps) => {
               label="Email or username"
               type="email"
               placeholder="Enter your email or username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <Input
               label="Password"
               variant="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <Input
               label="Repeat password"
               variant="password"
               placeholder="Enter your password again"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
+
+            {(error || authState.error) && (
+              <p className="text-red-500 text-sm text-center">{error || authState.error}</p>
+            )}
 
             <Button
               variant="primary"
               className="w-full text-sm font-medium"
               size="lg"
-              onClick={props.onClose}
+              onClick={handleSignUp}
+              disabled={authState.isLoading}
             >
-              Sign Up
+              {authState.isLoading ? "Creating Account..." : "Sign Up"}
             </Button>
           </div>
         </div>
@@ -68,6 +102,7 @@ const SignUpModal = (props: SignUpModalProps) => {
           <Button
             variant="ghost"
             className="text-primary hover:text-primary/80 font-semibold text-sm p-0 h-auto"
+            onClick={handleSignInClick}
           >
             Sign In
           </Button>

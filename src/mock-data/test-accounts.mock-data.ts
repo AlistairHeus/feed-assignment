@@ -16,5 +16,13 @@ export const TEST_ACCOUNTS: TestAccount[] = [
             email: 'test@user.com',
             username: 'Test User'
         }
+    },
+    {
+        email: 'kartikjha13@gmail.com',
+        password: 'Password123',
+        user: {
+            email: 'kartikjha13@gmail.com',
+            username: 'Kartik Jha'
+        }
     }
 ];
