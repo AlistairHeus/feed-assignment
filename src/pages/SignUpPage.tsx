@@ -1,22 +1,23 @@
 import { LogIn } from "lucide-react";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
 
-type SignUpModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-const SignUpModal = (props: SignUpModalProps) => {
+const SignUpPage = () => {
   return (
-    <Modal
-      isOpen={props.isOpen}
-      onClose={props.onClose}
-    >
-      <Modal.Header className="p-0"></Modal.Header>
-
-      <Modal.Content className="p-3 rounded-3xl ">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      {/* Header */}
+      <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
+            <span className="text-background text-sm font-bold">f</span>
+          </div>
+          <span className="text-foreground font-semibold">foo-rum</span>
+        </div>
+        <Button variant="ghost" className="text-foreground">
+          Back to home
+        </Button>
+      </div>
+      <div className="p-3 pb-0 rounded-3xl bg-muted-dark relative w-full max-w-md">
         <div className="bg-popover rounded-3xl p-10">
           <div className="text-center ">
             <div className="flex justify-center mb-6">
@@ -54,27 +55,26 @@ const SignUpModal = (props: SignUpModalProps) => {
               variant="primary"
               className="w-full text-sm font-medium"
               size="lg"
-              onClick={props.onClose}
             >
               Sign Up
             </Button>
           </div>
         </div>
-      </Modal.Content>
 
-      <Modal.Footer className="p-4 pt-3">
-        <span className="text-muted-foreground font-medium text-sm">
-          Already have an account?{" "}
-          <Button
-            variant="ghost"
-            className="text-primary hover:text-primary/80 font-semibold text-sm p-0 h-auto"
-          >
-            Sign In
-          </Button>
-        </span>
-      </Modal.Footer>
-    </Modal>
+        <div className="p-4 pt-3 text-center">
+          <span className="text-muted-foreground font-medium text-sm">
+            Already have an account?{" "}
+            <Button
+              variant="ghost"
+              className="text-primary hover:text-primary/80 font-semibold text-sm p-0 h-auto"
+            >
+              Sign In
+            </Button>
+          </span>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default SignUpModal;
+export default SignUpPage;

@@ -77,7 +77,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
       )}
       
       {helperText && !error && (
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-1 text-sm text-muted-foreground font-light">
           {helperText}
         </p>
       )}

@@ -27,7 +27,7 @@ const SignInModal = (props: SignInModalProps) => {
             <h2 className="text-xl font-bold text-popover-foreground">
               Sign in to continue
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground font-light">
               Sign in to access all the features on this app
             </p>
           </div>

@@ -1,11 +1,11 @@
 import React from "react";
 import { AuthProvider } from "./context/AuthContext";
-import UserInterfaceShowcase from "./pages/user-interface-showcase";
+import { SignInPage } from "./pages";
 
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <UserInterfaceShowcase />
+      <SignInPage />
     </AuthProvider>
   );
 };
