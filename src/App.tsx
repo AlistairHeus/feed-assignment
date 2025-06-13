@@ -246,17 +246,17 @@ const UIShowcase: React.FC = () => {
                   <div className="text-center ">
                     <div className="flex justify-center mb-6">
                       <div className="   rounded-full flex items-center justify-center">
-                        <LogIn size={20} className="text-gray-900" />
+                        <LogIn size={25} className="text-gray-900" />
                       </div>
                     </div>
                     <h2 className="text-xl font-bold text-gray-900 ">
                       Create an account to continue
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-neutral-400">
                       Create an account to access all the features on this app
                     </p>
                   </div>
-                  <div className="pt-10 space-y-5">
+                  <div className="pt-16 px-2 space-y-4">
                     <Input
                       label="Email or username"
                       type="email"
@@ -287,10 +287,10 @@ const UIShowcase: React.FC = () => {
                 </div>
               </Modal.Content>
 
-              <Modal.Footer className="p-4 bg-gray-200">
-                <span className="text-gray-600 font-semibold text-xs">
-                  Already have an account?{" "}
-                  <button className="text-blue-600 hover:text-blue-700 font-semibold text-xs">
+              <Modal.Footer className="p-4 pt-3 bg-gray-200">
+                <span className="text-gray-500 font-semibold text-xs">
+                  Do not have an account?{" "}
+                  <button className="text-indigo-600 hover:text-indigo-700 font-semibold text-xs">
                     Sign In
                   </button>
                 </span>
