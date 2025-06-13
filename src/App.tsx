@@ -1,5 +1,6 @@
 import React from "react";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./hooks/useAuth";
 
 const AuthTest: React.FC = () => {
   const {
