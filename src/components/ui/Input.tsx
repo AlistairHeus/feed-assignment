@@ -28,7 +28,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   const variantClasses = {
     default: error 
       ? 'bg-red-50 border border-red-200 focus:border-red-500 focus:bg-white' 
-      : 'bg-gray-50 border-0 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20',
+      : 'bg-gray-100 border-0 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20',
     error: 'bg-red-50 border border-red-200 focus:border-red-500 focus:bg-white'
   };
   
@@ -37,7 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-semibold text-gray-900 mb-1">
           {label}
         </label>
       )}

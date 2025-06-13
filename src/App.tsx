@@ -243,20 +243,20 @@ const UIShowcase: React.FC = () => {
 
               <Modal.Content className="p-2 rounded-3xl ">
                 <div className="bg-white rounded-3xl p-10">
-                  <div className="text-center py-4 border border-gray-800">
+                  <div className="text-center ">
                     <div className="flex justify-center mb-6">
                       <div className="   rounded-full flex items-center justify-center">
-                        <LogIn size={20} className="text-gray-600" />
+                        <LogIn size={20} className="text-gray-900" />
                       </div>
                     </div>
-                    <h2 className="text-lg font-bold text-gray-900 mb-1">
+                    <h2 className="text-xl font-bold text-gray-900 ">
                       Create an account to continue
                     </h2>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-sm text-gray-400">
                       Create an account to access all the features on this app
                     </p>
                   </div>
-                  <div className="">
+                  <div className="pt-10 space-y-5">
                     <Input
                       label="Email or username"
                       type="email"
@@ -288,9 +288,9 @@ const UIShowcase: React.FC = () => {
               </Modal.Content>
 
               <Modal.Footer className="p-4 bg-gray-200">
-                <span className="text-sm text-gray-600">
+                <span className="text-gray-600 font-semibold text-xs">
                   Already have an account?{" "}
-                  <button className="text-blue-600 hover:text-blue-700 font-medium">
+                  <button className="text-blue-600 hover:text-blue-700 font-semibold text-xs">
                     Sign In
                   </button>
                 </span>
