@@ -1,10 +1,10 @@
-import React from 'react';
-import { User } from 'lucide-react';
+import React from "react";
+import { User } from "lucide-react";
 
 export interface AvatarProps {
   src?: string;
   alt?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   fallback?: string;
   className?: string;
 }
@@ -12,19 +12,19 @@ export interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({
   src,
   alt,
-  size = 'md',
+  size = "md",
   fallback,
-  className = ''
+  className = "",
 }) => {
   const [imageError, setImageError] = React.useState(false);
   const [imageLoaded, setImageLoaded] = React.useState(false);
 
   const sizeClasses = {
-    xs: 'w-6 h-6 text-xs',
-    sm: 'w-8 h-8 text-sm',
-    md: 'w-10 h-10 text-base',
-    lg: 'w-12 h-12 text-lg',
-    xl: 'w-16 h-16 text-xl'
+    xs: "w-6 h-6 text-xs",
+    sm: "w-8 h-8 text-sm",
+    md: "w-10 h-10 text-base",
+    lg: "w-12 h-12 text-lg",
+    xl: "w-16 h-16 text-xl",
   };
 
   const iconSizes = {
@@ -32,11 +32,12 @@ const Avatar: React.FC<AvatarProps> = ({
     sm: 16,
     md: 20,
     lg: 24,
-    xl: 32
+    xl: 32,
   };
 
-  const baseClasses = 'inline-flex items-center justify-center rounded-full bg-gray-100 text-gray-600 font-medium overflow-hidden';
-  
+  const baseClasses =
+    "inline-flex items-center justify-center rounded-full bg-gray-100 text-gray-600 font-medium overflow-hidden";
+
   const handleImageError = () => {
     setImageError(true);
   };
@@ -45,12 +46,11 @@ const Avatar: React.FC<AvatarProps> = ({
     setImageLoaded(true);
   };
 
-  // Generate initials from fallback text
   const getInitials = (text: string): string => {
     return text
-      .split(' ')
-      .map(word => word.charAt(0))
-      .join('')
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("")
       .toUpperCase()
       .slice(0, 2);
   };
@@ -63,22 +63,20 @@ const Avatar: React.FC<AvatarProps> = ({
       {src && !imageError && (
         <img
           src={src}
-          alt={alt || 'Avatar'}
-          className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          alt={alt || "Avatar"}
+          className={`w-full h-full object-cover ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
           onError={handleImageError}
           onLoad={handleImageLoad}
         />
       )}
-      
+
       {showFallback && (
-        <span className="select-none">
-          {getInitials(fallback)}
-        </span>
+        <span className="select-none">{getInitials(fallback)}</span>
       )}
-      
-      {!showImage && !showFallback && (
-        <User size={iconSizes[size]} />
-      )}
+
+      {!showImage && !showFallback && <User size={iconSizes[size]} />}
     </div>
   );
 };
