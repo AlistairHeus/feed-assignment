@@ -1,10 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kalam:wght@300;400;700&family=Orbitron:wght@400..900&display=swap');
+
 @import "tailwindcss";
 
 @theme {
   
+  /* Container Widths */
+  --container-md: 30rem;
+
+
   /* Background Colors */
   --color-background: 0 0% 100%;           /* White background */
-  --color-foreground: 0 0% 3.9%;          /* Almost black text */
+  --color-foreground: 0 0% 2%;          /* Almost black text */
   
   /* Card Colors */
   --color-card: 0 0% 100%;                 /* White card background */
@@ -15,7 +21,7 @@
   --color-popover-foreground: 0 0% 3.9%;  /* Popover text */
   
   /* Primary Colors (Indigo) */
-  --color-primary: 239 84% 67%;            /* Indigo-500 */
+  --color-primary: 243 75% 59%;            /* Indigo-600 */
   --color-primary-foreground: 0 0% 98%;    /* White text on primary */
   
   /* Secondary Colors */
@@ -71,8 +77,7 @@
   --radius: 0.5rem;                   /* 8px default radius */
   
   /* === FONT FAMILIES === */
-  --font-family-sans: Inter, system-ui, sans-serif;
-  --font-family-mono: 'JetBrains Mono', monospace;
+  --default-font-family: Inter, system-ui, sans-serif;
 }
 
 /* === UTILITY CLASSES FOR SEMANTIC COLORS === */

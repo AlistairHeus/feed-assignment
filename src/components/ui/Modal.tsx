@@ -55,7 +55,7 @@ const Modal: React.FC<ModalProps> & {
       onClick={handleBackdropClick}
     >
       <div 
-        className="relative w-full max-w-lg bg-muted-dark rounded-4xl shadow-2xl overflow-hidden"
+        className="relative w-full max-w-md bg-muted-dark rounded-4xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

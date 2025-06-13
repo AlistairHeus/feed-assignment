@@ -121,7 +121,9 @@ const UIShowcase: React.FC = () => {
         </section>
 
         <section className="bg-card rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Input Component</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">
+            Input Component
+          </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
@@ -182,7 +184,9 @@ const UIShowcase: React.FC = () => {
         </section>
 
         <section className="bg-card rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Avatar Component</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">
+            Avatar Component
+          </h2>
 
           <div className="space-y-6">
             <div>
@@ -227,7 +231,9 @@ const UIShowcase: React.FC = () => {
         </section>
 
         <section className="bg-card rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Modal Component</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">
+            Modal Component
+          </h2>
 
           <div className="space-y-4">
             <p className="text-muted-foreground">
@@ -241,7 +247,7 @@ const UIShowcase: React.FC = () => {
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
               <Modal.Header className="p-0"></Modal.Header>
 
-              <Modal.Content className="p-2 rounded-3xl ">
+              <Modal.Content className="p-3 rounded-3xl ">
                 <div className="bg-popover rounded-3xl p-10">
                   <div className="text-center ">
                     <div className="flex justify-center mb-6">
@@ -277,7 +283,7 @@ const UIShowcase: React.FC = () => {
 
                     <Button
                       variant="primary"
-                      className="w-full"
+                      className="w-full text-sm font-medium"
                       size="lg"
                       onClick={() => setIsModalOpen(false)}
                     >
@@ -288,102 +294,17 @@ const UIShowcase: React.FC = () => {
               </Modal.Content>
 
               <Modal.Footer className="p-4 pt-3">
-                <span className="text-muted-foreground font-semibold text-xs">
-                  Do not have an account?{" "}
-                  <button className="text-primary hover:text-primary/80 font-semibold text-xs">
+                <span className="text-muted-foreground font-medium text-sm">
+                  Already have an account?{" "}
+                  <Button
+                    variant="ghost"
+                    className="text-primary hover:text-primary/80 font-semibold text-sm p-0 h-auto"
+                  >
                     Sign In
-                  </button>
+                  </Button>
                 </span>
               </Modal.Footer>
             </Modal>
-          </div>
-        </section>
-
-        <section className="bg-card rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Custom Text Sizes (Tailwind v4)</h2>
-          
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-lg font-medium mb-4">Standard Text Sizes</h3>
-              <div className="space-y-2">
-                <p className="text-xxs">Extra Extra Small (text-xxs) - 10px</p>
-                <p className="text-xs">Extra Small (text-xs) - 12px</p>
-                <p className="text-sm">Small (text-sm) - 14px</p>
-                <p className="text-base">Base (text-base) - 16px</p>
-                <p className="text-lg">Large (text-lg) - 18px</p>
-                <p className="text-xl">Extra Large (text-xl) - 20px</p>
-                <p className="text-2xl">2X Large (text-2xl) - 24px</p>
-                <p className="text-3xl">3X Large (text-3xl) - 30px</p>
-                <p className="text-4xl">4X Large (text-4xl) - 36px</p>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-medium mb-4">Semantic Text Sizes</h3>
-              <div className="space-y-2">
-                <p className="text-caption">Caption text (text-caption) - 12px</p>
-                <p className="text-body">Body text (text-body) - 14px</p>
-                <p className="text-body-lg">Large body text (text-body-lg) - 16px</p>
-                <p className="text-heading-sm">Small heading (text-heading-sm) - 18px</p>
-                <p className="text-heading">Heading (text-heading) - 20px</p>
-                <p className="text-heading-lg">Large heading (text-heading-lg) - 24px</p>
-                <p className="text-display">Display text (text-display) - 36px</p>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-medium mb-4">Custom Colors</h3>
-              <div className="space-y-2">
-                <p className="text-primary">Primary color text</p>
-                <p className="text-secondary">Secondary color text</p>
-                <p className="text-accent">Accent color text</p>
-                <p className="text-danger">Danger color text</p>
-                <p className="text-warning">Warning color text</p>
-                <p className="text-success">Success color text</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-card rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Integration Example</h2>
-          <p className="text-muted-foreground mb-6">
-            Here's how our components work together in a realistic scenario:
-          </p>
-
-          <div className="max-w-md mx-auto border-border border rounded-lg p-6 bg-card">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <Avatar fallback="Demo User" />
-                <div>
-                  <h3 className="font-medium text-card-foreground">Demo User</h3>
-                  <p className="text-sm text-muted-foreground">5 mins ago</p>
-                </div>
-              </div>
-              <Button variant="icon" size="sm">
-                <X size={16} />
-              </Button>
-            </div>
-
-            <p className="text-card-foreground mb-4">
-              This is how our components look when integrated together in a real
-              post card!
-            </p>
-
-            <div className="flex gap-2">
-              <Button variant="secondary" size="sm">
-                <Heart size={16} className="mr-2" />
-                Like
-              </Button>
-              <Button variant="secondary" size="sm">
-                <MessageCircle size={16} className="mr-2" />
-                Comment
-              </Button>
-              <Button variant="secondary" size="sm">
-                <Share size={16} className="mr-2" />
-                Share
-              </Button>
-            </div>
           </div>
         </section>
       </div>
