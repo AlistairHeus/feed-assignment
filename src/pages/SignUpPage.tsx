@@ -5,18 +5,6 @@ import Input from "../components/ui/Input";
 const SignUpPage = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {/* Header */}
-      <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
-            <span className="text-background text-sm font-bold">f</span>
-          </div>
-          <span className="text-foreground font-semibold">foo-rum</span>
-        </div>
-        <Button variant="ghost" className="text-foreground">
-          Back to home
-        </Button>
-      </div>
       <div className="p-3 pb-0 rounded-3xl bg-muted-dark relative w-full max-w-md">
         <div className="bg-popover rounded-3xl p-10">
           <div className="text-center ">
