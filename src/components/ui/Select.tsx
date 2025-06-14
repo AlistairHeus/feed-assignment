@@ -78,7 +78,6 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className={cn("relative", className)} ref={selectRef}>
-      {/* Trigger */}
       <button
         type="button"
         className={cn(
@@ -107,7 +106,6 @@ const Select: React.FC<SelectProps> = ({
         />
       </button>
 
-      {/* Dropdown */}
       {isOpen && (
         <div className="absolute z-50 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-lg">
           <div className="max-h-60 overflow-auto py-1">

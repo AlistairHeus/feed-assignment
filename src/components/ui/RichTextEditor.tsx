@@ -1,19 +1,18 @@
-import React from "react";
 import {
   Bold,
+  Mic,
+  Code,
   Italic,
-  Underline,
   List,
   ListOrdered,
-  Code,
-  Quote,
+  Video,
   Plus,
-  Camera,
-  Paperclip,
-  Smile,
-  Send,
+  Quote,
   SendHorizonal,
+  Smile,
+  Underline,
 } from "lucide-react";
+import React from "react";
 import Button from "./Button";
 import Select from "./Select";
 
@@ -30,11 +29,11 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   onSubmit,
   placeholder = "How are you feeling today?",
 }) => {
-  const handleFormatClick = (format: string) => {
+  const handleFormatClick = (_format: string) => {
     alert("Function not implemented");
   };
 
-  const handleMediaClick = (type: string) => {
+  const handleMediaClick = (_type: string) => {
     alert("Function not implemented");
   };
 
@@ -46,10 +45,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
-      {/* Toolbar */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
         <div className="flex items-center gap-1">
-          {/* Text Formatting */}
           <Select
             options={[
               { value: "paragraph", label: "Paragraph" },
@@ -66,7 +63,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="p-1 h-8 w-8 text-gray-600 hover:bg-gray-100"
+            className="p-1 h-8 w-8 text-muted-foreground hover:bg-gray-100"
             onClick={() => handleFormatClick("bold")}
           >
             <Bold size={14} />
@@ -75,7 +72,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="p-1 h-8 w-8 text-gray-600 hover:bg-gray-100"
+            className="p-1 h-8 w-8 text-muted-foreground hover:bg-gray-100"
             onClick={() => handleFormatClick("italic")}
           >
             <Italic size={14} />
@@ -84,7 +81,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="p-1 h-8 w-8 text-gray-600 hover:bg-gray-100"
+            className="p-1 h-8 w-8 text-muted-foreground hover:bg-gray-100"
             onClick={() => handleFormatClick("underline")}
           >
             <Underline size={14} />
@@ -95,7 +92,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="p-1 h-8 w-8 text-gray-600 hover:bg-gray-100"
+            className="p-1 h-8 w-8 text-muted-foreground hover:bg-gray-100"
             onClick={() => handleFormatClick("bulletList")}
           >
             <List size={14} />
@@ -104,7 +101,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="p-1 h-8 w-8 text-gray-600 hover:bg-gray-100"
+            className="p-1 h-8 w-8 text-muted-foreground hover:bg-gray-100"
             onClick={() => handleFormatClick("orderedList")}
           >
             <ListOrdered size={14} />
@@ -115,7 +112,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="p-1 h-8 w-8 text-gray-600 hover:bg-gray-100"
+            className="p-1 h-8 w-8 text-muted-foreground hover:bg-gray-100"
             onClick={() => handleFormatClick("quote")}
           >
             <Quote size={14} />
@@ -125,14 +122,13 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="p-1 h-8 w-8 text-gray-600 hover:bg-gray-100"
+            className="p-1 h-8 w-8 text-muted-foreground hover:bg-gray-100"
             onClick={() => handleFormatClick("code")}
           >
             <Code size={14} />
           </Button>
         </div>
 
-        {/* Delete Button */}
         <Button
           variant="ghost"
           size="sm"
@@ -152,10 +148,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         </Button>
       </div>
 
-      {/* Text Area */}
       <div className="">
         <div className="p-4 flex items-start gap-3">
-          <div className="flex items-center text-gray-400">
+          <div className="flex items-center text-foreground">
             <Smile size={20} />
           </div>
           <textarea
@@ -168,17 +163,16 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           />
         </div>
 
-        {/* Bottom Actions */}
         <div className="flex items-center justify-between mt-4 border-t-1 border-border">
           <div className="p-1 flex items-center justify-between w-full">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">
               <Button
                 variant="ghost"
                 size="sm"
                 className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
                 onClick={() => handleMediaClick("add")}
               >
-                <Plus size={16} />
+                <Plus size={18} />
               </Button>
 
               <Button
@@ -187,7 +181,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
                 onClick={() => handleMediaClick("camera")}
               >
-                <Camera size={16} />
+                <Mic size={18} />
               </Button>
 
               <Button
@@ -196,19 +190,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
                 onClick={() => handleMediaClick("attachment")}
               >
-                <Paperclip size={16} />
+                <Video size={18} />
               </Button>
             </div>
 
-            {/* Send Button */}
-            <Button
-              variant="icon"
-              onClick={onSubmit}
-              // className="  rounded-full p-2 h-10 w-10 flex items-center justify-center"
-              disabled={!value.trim()}
-
-            >
-              <SendHorizonal size={25} fill="#5a67d8" stroke="white" strokeWidth={1}/>
+            <Button variant="ghost" onClick={onSubmit} disabled={!value.trim()}>
+              <SendHorizonal
+                size={25}
+                fill="#5a67d8"
+                stroke="white"
+                strokeWidth={1}
+              />
             </Button>
           </div>
         </div>
