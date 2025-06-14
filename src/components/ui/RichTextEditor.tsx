@@ -12,7 +12,7 @@ import {
   Smile,
   Underline,
 } from "lucide-react";
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import Select from "./Select";
 
@@ -21,6 +21,8 @@ interface RichTextEditorProps {
   onChange: (value: string) => void;
   onSubmit: () => void;
   placeholder?: string;
+  selectedEmoji?: string;
+  onEmojiChange?: (emoji: string) => void;
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
@@ -28,13 +30,54 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   onChange,
   onSubmit,
   placeholder = "How are you feeling today?",
+  selectedEmoji = "😊",
+  onEmojiChange,
 }) => {
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const emojiPickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target as Node)) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    if (showEmojiPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showEmojiPicker]);
+
+  const emojis = [
+    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
+    "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
+    "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
+    "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣",
+    "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬",
+    "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗",
+    "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯",
+    "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐",
+    "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈",
+    "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾"
+  ];
+
   const handleFormatClick = (_format: string) => {
     alert("Function not implemented");
   };
 
   const handleMediaClick = (_type: string) => {
     alert("Function not implemented");
+  };
+
+  const handleEmojiClick = (emoji: string) => {
+    if (onEmojiChange) {
+      onEmojiChange(emoji);
+    }
+    setShowEmojiPicker(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -150,8 +193,29 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
       <div className="">
         <div className="p-4 flex items-start gap-3">
-          <div className="flex items-center text-foreground">
-            <Smile size={20} />
+          <div className="relative">
+            <button
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              className="flex items-center justify-center w-8 h-8 text-foreground hover:bg-gray-100 rounded transition-colors"
+            >
+            <span className="text-lg">{selectedEmoji}</span>
+            </button>
+            
+            {showEmojiPicker && (
+              <div ref={emojiPickerRef} className="absolute top-8 left-0 z-10 bg-white border border-gray-200 rounded-lg shadow-lg p-3 w-64 max-h-48 overflow-y-auto">
+                <div className="grid grid-cols-8 gap-1">
+                  {emojis.map((emoji, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleEmojiClick(emoji)}
+                      className="p-1 hover:bg-gray-100 rounded text-lg transition-colors"
+                    >
+                      {emoji}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           <textarea
             value={value}

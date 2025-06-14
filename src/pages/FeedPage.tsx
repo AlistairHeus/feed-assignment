@@ -14,6 +14,7 @@ const FeedPage: React.FC = () => {
       content: string;
       timestamp: string;
       avatar?: string;
+      emoji?: string;
     }>
   >([
     {
@@ -42,6 +43,7 @@ const FeedPage: React.FC = () => {
     },
   ]);
   const [newPostContent, setNewPostContent] = useState("");
+  const [selectedEmoji, setSelectedEmoji] = useState("😊");
 
   const handleAuthRequired = (action: string) => {
     if (!isAuthenticated) {
@@ -64,6 +66,7 @@ const FeedPage: React.FC = () => {
         content: newPostContent,
         timestamp: "Just now",
         avatar: undefined,
+        emoji: selectedEmoji,
       };
       setPosts([newPost, ...posts]);
       setNewPostContent("");
@@ -79,6 +82,8 @@ const FeedPage: React.FC = () => {
             onChange={setNewPostContent}
             onSubmit={handlePublishPost}
             placeholder="How are you feeling today?"
+            selectedEmoji={selectedEmoji}
+            onEmojiChange={setSelectedEmoji}
           />
         </div>
 
@@ -90,6 +95,7 @@ const FeedPage: React.FC = () => {
               timestamp={post.timestamp}
               content={post.content}
               avatar={post.avatar}
+              emoji={post.emoji}
               onLike={() => handleAuthRequired("Like")}
               onComment={() => handleAuthRequired("Comment")}
               onShare={() => handleAuthRequired("Share")}

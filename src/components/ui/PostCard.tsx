@@ -8,6 +8,7 @@ interface PostCardProps {
   timestamp: string;
   content: string;
   avatar?: string;
+  emoji?: string;
   onLike?: () => void;
   onComment?: () => void;
   onShare?: () => void;
@@ -18,6 +19,7 @@ const PostCard: React.FC<PostCardProps> = ({
   timestamp,
   content,
   avatar,
+  emoji = "😊",
   onLike,
   onComment,
   onShare,
@@ -51,7 +53,7 @@ const PostCard: React.FC<PostCardProps> = ({
         <div className="flex items-start gap-3 mb-4">
           <div className="flex-shrink-0">
             <div className="w-10 h-10 flex items-center justify-center">
-              <span className="text-lg">😊</span>
+              <span className="text-lg">{emoji}</span>
             </div>
           </div>
           <div className="flex-1">
