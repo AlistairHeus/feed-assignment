@@ -1,17 +1,18 @@
 import React from "react";
-import { 
-  Bold, 
-  Italic, 
-  Underline, 
-  List, 
-  ListOrdered, 
-  Code, 
-  Quote, 
+import {
+  Bold,
+  Italic,
+  Underline,
+  List,
+  ListOrdered,
+  Code,
+  Quote,
   Plus,
   Camera,
   Paperclip,
   Smile,
-  Send
+  Send,
+  SendHorizonal,
 } from "lucide-react";
 import Button from "./Button";
 import Select from "./Select";
@@ -53,7 +54,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
             options={[
               { value: "paragraph", label: "Paragraph" },
               { value: "heading1", label: "Heading 1" },
-              { value: "heading2", label: "Heading 2" }
+              { value: "heading2", label: "Heading 2" },
             ]}
             value="paragraph"
             onValueChange={(value) => handleFormatClick(value)}
@@ -152,8 +153,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       </div>
 
       {/* Text Area */}
-      <div className="p-4">
-        <div className="flex items-start gap-3">
+      <div className="">
+        <div className="p-4 flex items-start gap-3">
           <div className="flex items-center text-gray-400">
             <Smile size={20} />
           </div>
@@ -168,44 +169,48 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         </div>
 
         {/* Bottom Actions */}
-        <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
-              onClick={() => handleMediaClick("add")}
-            >
-              <Plus size={16} />
-            </Button>
+        <div className="flex items-center justify-between mt-4 border-t-1 border-border">
+          <div className="p-1 flex items-center justify-between w-full">
+            <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
+                onClick={() => handleMediaClick("add")}
+              >
+                <Plus size={16} />
+              </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
-              onClick={() => handleMediaClick("camera")}
-            >
-              <Camera size={16} />
-            </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
+                onClick={() => handleMediaClick("camera")}
+              >
+                <Camera size={16} />
+              </Button>
 
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
+                onClick={() => handleMediaClick("attachment")}
+              >
+                <Paperclip size={16} />
+              </Button>
+            </div>
+
+            {/* Send Button */}
             <Button
-              variant="ghost"
-              size="sm"
-              className="p-2 h-8 w-8 text-gray-500 hover:bg-gray-100"
-              onClick={() => handleMediaClick("attachment")}
+              variant="icon"
+              onClick={onSubmit}
+              // className="  rounded-full p-2 h-10 w-10 flex items-center justify-center"
+              disabled={!value.trim()}
+
             >
-              <Paperclip size={16} />
+              <SendHorizonal size={25} fill="#5a67d8" stroke="white" strokeWidth={1}/>
             </Button>
           </div>
-
-          {/* Send Button */}
-          <Button
-            onClick={onSubmit}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-2 h-10 w-10 flex items-center justify-center"
-            disabled={!value.trim()}
-          >
-            <Send size={16} />
-          </Button>
         </div>
       </div>
     </div>
