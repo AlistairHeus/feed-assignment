@@ -43,7 +43,7 @@ const FeedPage: React.FC = () => {
     },
   ]);
   const [newPostContent, setNewPostContent] = useState("");
-  const [selectedEmoji, setSelectedEmoji] = useState("😊");
+  const [selectedEmoji, setSelectedEmoji] = useState<string | undefined>(undefined);
 
   const handleAuthRequired = (action: string) => {
     if (!isAuthenticated) {
@@ -70,6 +70,7 @@ const FeedPage: React.FC = () => {
       };
       setPosts([newPost, ...posts]);
       setNewPostContent("");
+      setSelectedEmoji(undefined);
     }
   };
 

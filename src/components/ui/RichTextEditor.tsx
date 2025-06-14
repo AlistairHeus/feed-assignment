@@ -30,7 +30,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   onChange,
   onSubmit,
   placeholder = "How are you feeling today?",
-  selectedEmoji = "😊",
+  selectedEmoji,
   onEmojiChange,
 }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -198,7 +198,11 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
               className="flex items-center justify-center w-8 h-8 text-foreground hover:bg-gray-100 rounded transition-colors"
             >
-            <span className="text-lg">{selectedEmoji}</span>
+            {selectedEmoji ? (
+                <span className="text-lg">{selectedEmoji}</span>
+              ) : (
+                <Smile size={20} />
+              )}
             </button>
             
             {showEmojiPicker && (
