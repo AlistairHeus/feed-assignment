@@ -36,7 +36,7 @@ const PostCard: React.FC<PostCardProps> = ({
 
   return (
     <div className="mb-4">
-      <div className="bg-gray-50 rounded-2xl shadow-md border  border-border p-6">
+      <div className="bg-gray-50 rounded-2xl shadow-md border  border-border p-4">
         <div className="flex items-start gap-3 mb-4">
           <div className="flex-shrink-0 ">
             <Avatar src={avatar} alt={author} className="rounded-lg" size="md" fallback={author} />
@@ -48,10 +48,17 @@ const PostCard: React.FC<PostCardProps> = ({
           </div>
         </div>
 
-        <div className="mb-4">
-          <p className="text-gray-800 text-sm leading-relaxed">
-            {renderContent(content)}
-          </p>
+        <div className="flex items-start gap-3 mb-4">
+          <div className="flex-shrink-0">
+            <div className="w-10 h-10 flex items-center justify-center">
+              <span className="text-lg">😊</span>
+            </div>
+          </div>
+          <div className="flex-1">
+            <p className="text-gray-800 text-sm leading-relaxed">
+              {renderContent(content)}
+            </p>
+          </div>
         </div>
       </div>
 
