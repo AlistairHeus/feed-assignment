@@ -1,19 +1,20 @@
 import React from "react";
-import {
-  Bold,
-  Italic,
-  Underline,
-  List,
-  ListOrdered,
-  Code,
-  Quote,
+import { 
+  Bold, 
+  Italic, 
+  Underline, 
+  List, 
+  ListOrdered, 
+  Code, 
+  Quote, 
   Plus,
   Camera,
   Paperclip,
   Smile,
-  Send,
+  Send
 } from "lucide-react";
 import Button from "./Button";
+import Select from "./Select";
 
 interface RichTextEditorProps {
   value: string;
@@ -48,14 +49,16 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
         <div className="flex items-center gap-1">
           {/* Text Formatting */}
-          <select
-            className="text-sm border-none bg-transparent focus:outline-none text-gray-600"
-            onChange={() => handleFormatClick("paragraph")}
-          >
-            <option>Paragraph</option>
-            <option>Heading 1</option>
-            <option>Heading 2</option>
-          </select>
+          <Select
+            options={[
+              { value: "paragraph", label: "Paragraph" },
+              { value: "heading1", label: "Heading 1" },
+              { value: "heading2", label: "Heading 2" }
+            ]}
+            value="paragraph"
+            onValueChange={(value) => handleFormatClick(value)}
+            className="w-32"
+          />
 
           <div className="w-px h-4 bg-gray-300 mx-2" />
 
