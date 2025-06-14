@@ -32,7 +32,7 @@ export interface AuthContextType {
   openModal: (type: 'signin' | 'signup') => void;
   closeModal: () => void;
   switchModal: () => void;
-  clearRegisteredUsers: () => void; // Utility function for debugging
+  clearRegisteredUsers: () => void;
 }
 
 export interface TestAccount {

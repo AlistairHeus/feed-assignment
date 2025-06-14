@@ -25,8 +25,11 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 
-// Helper function to get registered users from localStorage
-const getRegisteredUsers = (): { email: string; password: string; user: User }[] => {
+const getRegisteredUsers = (): {
+  email: string;
+  password: string;
+  user: User;
+}[] => {
   const registeredUsersJSON = localStorage.getItem("registered_users");
   if (registeredUsersJSON) {
     try {
@@ -51,17 +54,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     console.log("Login attempt with:", credentials.email);
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // Check test accounts first
     const testAccount = TEST_ACCOUNTS.find(
       (acc) =>
         acc.email === credentials.email && acc.password === credentials.password
     );
     console.log("Test account match:", testAccount ? "Yes" : "No");
 
-    // Check registered users from localStorage
     const registeredUsers = getRegisteredUsers();
     console.log("Registered users:", registeredUsers);
-    
+
     const registeredAccount = registeredUsers.find(
       (acc) =>
         acc.email === credentials.email && acc.password === credentials.password
@@ -71,10 +72,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const account = testAccount || registeredAccount;
 
     if (account) {
-      // Use the existing user ID from registered account if available
-      const userId = registeredAccount?.user?.id || 
-                    (account.email === "demo@example.com" ? "demo-user" : `user-${Date.now()}`);
-      
+      const userId =
+        registeredAccount?.user?.id ||
+        (account.email === "demo@example.com"
+          ? "demo-user"
+          : `user-${Date.now()}`);
+
       const user: User = {
         id: userId,
         ...account.user,
@@ -107,15 +110,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     console.log("Signup attempt with:", credentials.email);
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // Check if email already exists in test accounts
     const emailExistsInTestAccounts = TEST_ACCOUNTS.some(
       (acc) => acc.email === credentials.email
     );
 
-    // Check if email already exists in registered users
     const registeredUsers = getRegisteredUsers();
     console.log("Current registered users:", registeredUsers);
-    
+
     const emailExistsInRegisteredUsers = registeredUsers.some(
       (acc) => acc.email === credentials.email
     );
@@ -129,15 +130,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       return false;
     }
 
-    // Create new user with a consistent ID
     const userId = `user-${Date.now()}`;
     const newUser: User = {
       id: userId,
       email: credentials.email,
-      username: credentials.email.split('@')[0], // Default username from email
+      username: credentials.email.split("@")[0],
     };
 
-    // Add to registered users in localStorage
     const newRegisteredUser = {
       email: credentials.email,
       password: credentials.password,
@@ -148,7 +147,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem("registered_users", JSON.stringify(registeredUsers));
     console.log("Updated registered users:", registeredUsers);
 
-    // Log in the user
     localStorage.setItem("auth_user", JSON.stringify(newUser));
     setAuthState({
       user: newUser,
@@ -166,7 +164,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setAuthState(initialAuthState);
   };
 
-  // Utility function to clear all registered users (for debugging)
   const clearRegisteredUsers = () => {
     localStorage.removeItem("registered_users");
     console.log("All registered users cleared from localStorage");
@@ -216,7 +213,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     openModal,
     closeModal,
     switchModal,
-    clearRegisteredUsers, // Add the utility function to the context
+    clearRegisteredUsers,
   };
 
   return (

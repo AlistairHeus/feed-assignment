@@ -20,7 +20,6 @@ const SignUpModal = (props: SignUpModalProps) => {
   const handleSignUp = async () => {
     setError("");
 
-    // Basic validation
     if (!email) {
       setError("Email is required");
       return;
@@ -36,13 +35,11 @@ const SignUpModal = (props: SignUpModalProps) => {
       return;
     }
 
-    // Password strength validation
     if (password.length < 8) {
       setError("Password must be at least 8 characters long");
       return;
     }
 
-    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError("Please enter a valid email address");
@@ -52,7 +49,6 @@ const SignUpModal = (props: SignUpModalProps) => {
     try {
       const success = await signup({ email, password, confirmPassword });
       if (!success) {
-        // Error is handled by the AuthContext and set in authState.error
       }
     } catch (err) {
       setError("An error occurred during sign up. Please try again.");
