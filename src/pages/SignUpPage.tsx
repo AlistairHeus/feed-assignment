@@ -7,7 +7,7 @@ import { useAuth } from "../hooks/useAuth";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const { authState } = useAuth();
+  const { authState, signup } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,14 +16,44 @@ const SignUpPage = () => {
   const handleSignUp = async () => {
     setError("");
 
+    // Basic validation
+    if (!email) {
+      setError("Email is required");
+      return;
+    }
+
+    if (!password) {
+      setError("Password is required");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    alert(
-      "Sign up functionality not fully implemented yet. Please use the test accounts to sign in."
-    );
+    // Password strength validation
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      const success = await signup({ email, password, confirmPassword });
+      if (success) {
+        navigate("/"); // Redirect to home/feed page on successful signup
+      }
+    } catch (err) {
+      setError("An error occurred during sign up. Please try again.");
+      console.error("Sign up error:", err);
+    }
   };
 
   const handleSignInClick = () => {

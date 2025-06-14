@@ -27,10 +27,12 @@ export interface AuthContextType {
   authState: AuthState;
   modalState: ModalState;
   login: (credentials: LoginCredentials) => Promise<boolean>;
+  signup: (credentials: SignUpCredentials) => Promise<boolean>;
   logout: () => void;
   openModal: (type: 'signin' | 'signup') => void;
   closeModal: () => void;
   switchModal: () => void;
+  clearRegisteredUsers: () => void; // Utility function for debugging
 }
 
 export interface TestAccount {
