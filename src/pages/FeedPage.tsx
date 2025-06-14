@@ -55,7 +55,7 @@ const FeedPage: React.FC = () => {
     if (!isAuthenticated) {
       openModal("signin");
     } else {
-      alert(`${action} functionality not implemented yet`);
+      showToast(`${action} functionality not implemented yet`, "info");
     }
   };
 
@@ -81,9 +81,26 @@ const FeedPage: React.FC = () => {
     }
   };
 
+  // Handler for any interaction on the feed for unauthenticated users
+  const handleFeedInteraction = (e: React.MouseEvent) => {
+    if (!isAuthenticated) {
+      // Only trigger for clicks directly on the feed elements, not on buttons that have their own handlers
+      const target = e.target as HTMLElement;
+      const isButton = target.tagName === 'BUTTON' || 
+                       target.closest('button') || 
+                       target.role === 'button' ||
+                       target.getAttribute('role') === 'button';
+      
+      // Don't trigger for clicks on buttons that already have auth handlers
+      if (!isButton) {
+        openModal("signin");
+      }
+    }
+  };
+
   return (
     <PageTransition className="min-h-screen bg-white">
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="max-w-2xl mx-auto px-4 py-8" onClick={handleFeedInteraction}>
         <div className="mb-8">
           <RichTextEditor
             value={newPostContent}
@@ -92,6 +109,8 @@ const FeedPage: React.FC = () => {
             placeholder="How are you feeling today?"
             selectedEmoji={selectedEmoji}
             onEmojiChange={setSelectedEmoji}
+            isAuthenticated={isAuthenticated}
+            openAuthModal={() => openModal("signin")}
           />
         </div>
 

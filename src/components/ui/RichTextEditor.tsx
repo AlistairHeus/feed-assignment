@@ -16,6 +16,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import Select from "./Select";
 import { motion, AnimatePresence } from "framer-motion";
+import { useToast } from "../../context/ToastContext";
 
 interface RichTextEditorProps {
   value: string;
@@ -24,6 +25,8 @@ interface RichTextEditorProps {
   placeholder?: string;
   selectedEmoji?: string;
   onEmojiChange?: (emoji: string) => void;
+  isAuthenticated?: boolean;
+  openAuthModal?: () => void;
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
@@ -33,48 +36,158 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   placeholder = "How are you feeling today?",
   selectedEmoji,
   onEmojiChange,
+  isAuthenticated = true,
+  openAuthModal,
 }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target as Node)) {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target as Node)
+      ) {
         setShowEmojiPicker(false);
       }
     };
 
     if (showEmojiPicker) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showEmojiPicker]);
 
   const emojis = [
-    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
-    "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
-    "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
-    "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣",
-    "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬",
-    "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗",
-    "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯",
-    "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐",
-    "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈",
-    "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾"
+    "😀",
+    "😃",
+    "😄",
+    "😁",
+    "😆",
+    "😅",
+    "😂",
+    "🤣",
+    "😊",
+    "😇",
+    "🙂",
+    "🙃",
+    "😉",
+    "😌",
+    "😍",
+    "🥰",
+    "😘",
+    "😗",
+    "😙",
+    "😚",
+    "😋",
+    "😛",
+    "😝",
+    "😜",
+    "🤪",
+    "🤨",
+    "🧐",
+    "🤓",
+    "😎",
+    "🤩",
+    "🥳",
+    "😏",
+    "😒",
+    "😞",
+    "😔",
+    "😟",
+    "😕",
+    "🙁",
+    "☹️",
+    "😣",
+    "😖",
+    "😫",
+    "😩",
+    "🥺",
+    "😢",
+    "😭",
+    "😤",
+    "😠",
+    "😡",
+    "🤬",
+    "🤯",
+    "😳",
+    "🥵",
+    "🥶",
+    "😱",
+    "😨",
+    "😰",
+    "😥",
+    "😓",
+    "🤗",
+    "🤔",
+    "🤭",
+    "🤫",
+    "🤥",
+    "😶",
+    "😐",
+    "😑",
+    "😬",
+    "🙄",
+    "😯",
+    "😦",
+    "😧",
+    "😮",
+    "😲",
+    "🥱",
+    "😴",
+    "🤤",
+    "😪",
+    "😵",
+    "🤐",
+    "🥴",
+    "🤢",
+    "🤮",
+    "🤧",
+    "😷",
+    "🤒",
+    "🤕",
+    "🤑",
+    "🤠",
+    "😈",
+    "👿",
+    "👹",
+    "👺",
+    "🤡",
+    "💩",
+    "👻",
+    "💀",
+    "☠️",
+    "👽",
+    "👾",
   ];
 
+  const { showToast } = useToast();
+
   const handleFormatClick = (_format: string) => {
-    alert("Function not implemented");
+    if (!isAuthenticated && openAuthModal) {
+      openAuthModal();
+    } else {
+      showToast("Function not implemented", "info");
+    }
   };
 
   const handleMediaClick = (_type: string) => {
-    alert("Function not implemented");
+    if (!isAuthenticated && openAuthModal) {
+      openAuthModal();
+    } else {
+      showToast("Function not implemented", "info");
+    }
   };
 
   const handleEmojiClick = (emoji: string) => {
+    if (!isAuthenticated && openAuthModal) {
+      openAuthModal();
+      return;
+    }
+
     if (onEmojiChange) {
       onEmojiChange(emoji);
     }
@@ -196,13 +309,19 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         <div className="p-4 flex items-start gap-3">
           <div className="relative">
             <motion.button
-              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              onClick={() => {
+                if (!isAuthenticated && openAuthModal) {
+                  openAuthModal();
+                } else {
+                  setShowEmojiPicker(!showEmojiPicker);
+                }
+              }}
               className="flex items-center justify-center w-8 h-8 text-foreground hover:bg-gray-100 rounded transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-            {selectedEmoji ? (
-                <motion.span 
+              {selectedEmoji ? (
+                <motion.span
                   className="text-lg"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -214,16 +333,12 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <Smile size={20} />
               )}
             </motion.button>
-            
+
             <AnimatePresence>
               {showEmojiPicker && (
-                <motion.div 
-                  ref={emojiPickerRef} 
+                <div
+                  ref={emojiPickerRef}
                   className="absolute top-8 left-0 z-10 bg-white border border-gray-200 rounded-lg shadow-lg p-3 w-64 max-h-48 overflow-y-auto"
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
                 >
                   <div className="grid grid-cols-8 gap-1">
                     {emojis.map((emoji, index) => (
@@ -231,32 +346,29 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                         key={index}
                         onClick={() => handleEmojiClick(emoji)}
                         className="p-1 hover:bg-gray-100 rounded text-lg"
-                        whileHover={{ 
+                        whileHover={{
                           scale: 1.3,
-                          transition: { duration: 0.2 }
+                          transition: { duration: 0.2 },
                         }}
-                        whileTap={{ scale: 0.9 }}
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ 
-                          opacity: 1, 
-                          scale: 1,
-                          transition: { 
-                            delay: index * 0.01,
-                            duration: 0.2
-                          }
-                        }}
+                        initial={{ scale: 1 }}
                       >
                         {emoji}
                       </motion.button>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </AnimatePresence>
           </div>
           <textarea
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => {
+              if (!isAuthenticated && openAuthModal) {
+                openAuthModal();
+              } else {
+                onChange(e.target.value);
+              }
+            }}
             onKeyDown={handleKeyPress}
             placeholder={placeholder}
             className="flex-1 resize-none border-none outline-none text-gray-800 placeholder-gray-400 text-sm leading-relaxed min-h-[80px]"
@@ -295,7 +407,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               </Button>
             </div>
 
-            <Button variant="ghost" onClick={onSubmit} disabled={!value.trim()}>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                if (!isAuthenticated && openAuthModal) {
+                  openAuthModal();
+                } else {
+                  onSubmit();
+                }
+              }}
+              disabled={!value.trim()}
+            >
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9, rotate: 15 }}
