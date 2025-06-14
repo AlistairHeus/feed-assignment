@@ -1,6 +1,6 @@
 import Button from "../ui/Button";
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ToggleRight } from "lucide-react";
 
 interface NavbarProps {
@@ -29,12 +29,12 @@ const Navbar = ({
 
   return (
     <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10">
-      <div className="flex items-center gap-2">
+      <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
         <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
           <ToggleRight strokeWidth={3} size={30}/>
         </div>
         <span className="text-foreground font-semibold">foo-rum</span>
-      </div>
+      </Link>
 
       <div className="flex items-center gap-4">
         {showBackButton && (
