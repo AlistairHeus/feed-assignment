@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { TEST_ACCOUNTS } from "../mock-data/test-accounts.mock-data";
 import type {
   AuthContextType,
@@ -47,6 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [authState, setAuthState] = useState<AuthState>(initialAuthState);
   const [modalState, setModalState] = useState<ModalState>(initialModalState);
+  const toast = useContext(React.createContext<{ showToast?: (message: string, type: string) => void }>({ showToast: undefined }));
 
   const login = async (credentials: LoginCredentials): Promise<boolean> => {
     setAuthState((prev) => ({ ...prev, isLoading: true, error: null }));
@@ -162,6 +163,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = () => {
     localStorage.removeItem("auth_user");
     setAuthState(initialAuthState);
+    if (toast.showToast) {
+      toast.showToast("Logged out successfully", "info");
+    }
   };
 
   const clearRegisteredUsers = () => {

@@ -4,17 +4,23 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import { useAuth } from "../hooks/useAuth";
+import { useToast } from "../context/ToastContext";
+import { PageTransition } from "../components/layout";
 
 const SignInPage = () => {
   const navigate = useNavigate();
   const { login, authState } = useAuth();
+  const { showToast } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignIn = async () => {
     const success = await login({ email, password });
     if (success) {
+      showToast("Signed in successfully!", "success");
       navigate('/');
+    } else if (authState.error) {
+      showToast(authState.error, "error");
     }
   };
 
@@ -22,7 +28,7 @@ const SignInPage = () => {
     navigate('/signup');
   };
   return (
-    <div className="flex items-center justify-center p-4">
+    <PageTransition className="flex items-center justify-center p-4">
       <div className="p-3 pb-0 rounded-3xl bg-muted-dark relative w-full max-w-md">
         <div className="bg-popover rounded-3xl p-10">
           <div className="text-center ">
@@ -84,7 +90,7 @@ const SignInPage = () => {
           </span>
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 };
 

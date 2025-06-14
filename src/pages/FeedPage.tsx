@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useToast } from "../context/ToastContext";
 import { SignInModal, SignUpModal } from "../components/auth";
 import RichTextEditor from "../components/ui/RichTextEditor";
 import PostCard from "../components/ui/PostCard";
+import { PageTransition } from "../components/layout";
+import { motion } from "framer-motion";
 
 const FeedPage: React.FC = () => {
   const { authState, modalState, openModal, closeModal } = useAuth();
   const { user, isAuthenticated } = authState;
+  const { showToast } = useToast();
   const [posts, setPosts] = useState<
     Array<{
       id: number;
@@ -43,7 +47,9 @@ const FeedPage: React.FC = () => {
     },
   ]);
   const [newPostContent, setNewPostContent] = useState("");
-  const [selectedEmoji, setSelectedEmoji] = useState<string | undefined>(undefined);
+  const [selectedEmoji, setSelectedEmoji] = useState<string | undefined>(
+    undefined
+  );
 
   const handleAuthRequired = (action: string) => {
     if (!isAuthenticated) {
@@ -71,11 +77,12 @@ const FeedPage: React.FC = () => {
       setPosts([newPost, ...posts]);
       setNewPostContent("");
       setSelectedEmoji(undefined);
+      showToast("Post published successfully!", "success");
     }
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <PageTransition className="min-h-screen bg-white">
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="mb-8">
           <RichTextEditor
@@ -88,21 +95,48 @@ const FeedPage: React.FC = () => {
           />
         </div>
 
-        <div className="space-y-6">
-          {posts.map((post) => (
-            <PostCard
+        <motion.div
+          className="space-y-6"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+            hidden: {},
+          }}
+        >
+          {posts.map((post, _index) => (
+            <motion.div
               key={post.id}
-              author={post.author}
-              timestamp={post.timestamp}
-              content={post.content}
-              avatar={post.avatar}
-              emoji={post.emoji}
-              onLike={() => handleAuthRequired("Like")}
-              onComment={() => handleAuthRequired("Comment")}
-              onShare={() => handleAuthRequired("Share")}
-            />
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    type: "spring",
+                    damping: 15,
+                    stiffness: 100,
+                  },
+                },
+              }}
+            >
+              <PostCard
+                author={post.author}
+                timestamp={post.timestamp}
+                content={post.content}
+                avatar={post.avatar}
+                emoji={post.emoji}
+                onLike={() => handleAuthRequired("Like")}
+                onComment={() => handleAuthRequired("Comment")}
+                onShare={() => handleAuthRequired("Share")}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <SignInModal
           isOpen={modalState.isOpen && modalState.type === "signin"}
@@ -113,7 +147,7 @@ const FeedPage: React.FC = () => {
           onClose={closeModal}
         />
       </div>
-    </div>
+    </PageTransition>
   );
 };
 

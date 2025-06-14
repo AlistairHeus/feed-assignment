@@ -15,6 +15,7 @@ import {
 import React, { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import Select from "./Select";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface RichTextEditorProps {
   value: string;
@@ -194,32 +195,64 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       <div className="">
         <div className="p-4 flex items-start gap-3">
           <div className="relative">
-            <button
+            <motion.button
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
               className="flex items-center justify-center w-8 h-8 text-foreground hover:bg-gray-100 rounded transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
             {selectedEmoji ? (
-                <span className="text-lg">{selectedEmoji}</span>
+                <motion.span 
+                  className="text-lg"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                >
+                  {selectedEmoji}
+                </motion.span>
               ) : (
                 <Smile size={20} />
               )}
-            </button>
+            </motion.button>
             
-            {showEmojiPicker && (
-              <div ref={emojiPickerRef} className="absolute top-8 left-0 z-10 bg-white border border-gray-200 rounded-lg shadow-lg p-3 w-64 max-h-48 overflow-y-auto">
-                <div className="grid grid-cols-8 gap-1">
-                  {emojis.map((emoji, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleEmojiClick(emoji)}
-                      className="p-1 hover:bg-gray-100 rounded text-lg transition-colors"
-                    >
-                      {emoji}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            <AnimatePresence>
+              {showEmojiPicker && (
+                <motion.div 
+                  ref={emojiPickerRef} 
+                  className="absolute top-8 left-0 z-10 bg-white border border-gray-200 rounded-lg shadow-lg p-3 w-64 max-h-48 overflow-y-auto"
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="grid grid-cols-8 gap-1">
+                    {emojis.map((emoji, index) => (
+                      <motion.button
+                        key={index}
+                        onClick={() => handleEmojiClick(emoji)}
+                        className="p-1 hover:bg-gray-100 rounded text-lg"
+                        whileHover={{ 
+                          scale: 1.3,
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ 
+                          opacity: 1, 
+                          scale: 1,
+                          transition: { 
+                            delay: index * 0.01,
+                            duration: 0.2
+                          }
+                        }}
+                      >
+                        {emoji}
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <textarea
             value={value}
@@ -263,12 +296,18 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
             </div>
 
             <Button variant="ghost" onClick={onSubmit} disabled={!value.trim()}>
-              <SendHorizonal
-                size={25}
-                fill="#5a67d8"
-                stroke="white"
-                strokeWidth={1}
-              />
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9, rotate: 15 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <SendHorizonal
+                  size={25}
+                  fill="#5a67d8"
+                  stroke="white"
+                  strokeWidth={1}
+                />
+              </motion.div>
             </Button>
           </div>
         </div>

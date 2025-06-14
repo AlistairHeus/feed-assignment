@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import { useAuth } from "../hooks/useAuth";
+import { useToast } from "../context/ToastContext";
+import { PageTransition } from "../components/layout";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
   const { authState, signup } = useAuth();
+  const { showToast } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,37 +21,47 @@ const SignUpPage = () => {
 
     if (!email) {
       setError("Email is required");
+      showToast("Email is required", "error");
       return;
     }
 
     if (!password) {
       setError("Password is required");
+      showToast("Password is required", "error");
       return;
     }
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      showToast("Passwords do not match", "error");
       return;
     }
 
     if (password.length < 8) {
       setError("Password must be at least 8 characters long");
+      showToast("Password must be at least 8 characters long", "error");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError("Please enter a valid email address");
+      showToast("Please enter a valid email address", "error");
       return;
     }
 
     try {
       const success = await signup({ email, password, confirmPassword });
       if (success) {
+        showToast("Account created successfully!", "success");
         navigate("/");
+      } else if (authState.error) {
+        showToast(authState.error, "error");
       }
     } catch (err) {
-      setError("An error occurred during sign up. Please try again.");
+      const errorMessage = "An error occurred during sign up. Please try again.";
+      setError(errorMessage);
+      showToast(errorMessage, "error");
       console.error("Sign up error:", err);
     }
   };
@@ -58,7 +71,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-4">
+    <PageTransition className="flex items-center justify-center p-4">
       <div className="p-3 pb-0 rounded-3xl bg-muted-dark relative w-full max-w-md">
         <div className="bg-popover rounded-3xl p-10">
           <div className="text-center ">
@@ -130,7 +143,7 @@ const SignUpPage = () => {
           </span>
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 };
 
