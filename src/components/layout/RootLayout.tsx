@@ -6,30 +6,29 @@ const RootLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Determine navbar props based on current route
   const getNavbarProps = () => {
     switch (location.pathname) {
-      case '/':
+      case "/":
         return {
-          showBackButton: false
+          showBackButton: false,
         };
-      case '/signin':
+      case "/signin":
         return {
           showBackButton: true,
-          onBackClick: () => navigate('/'),
-          backButtonText: "Back to home"
+          onBackClick: () => navigate("/"),
+          backButtonText: "Back to home",
         };
-      case '/signup':
+      case "/signup":
         return {
           showBackButton: true,
-          onBackClick: () => navigate('/'),
-          backButtonText: "Back to home"
+          onBackClick: () => navigate("/"),
+          backButtonText: "Back to home",
         };
       default:
         return {
           showBackButton: true,
-          onBackClick: () => navigate('/'),
-          backButtonText: "Back to home"
+          onBackClick: () => navigate("/"),
+          backButtonText: "Back to home",
         };
     }
   };

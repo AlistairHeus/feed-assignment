@@ -24,9 +24,7 @@ const PostCard: React.FC<PostCardProps> = ({
   onComment,
   onShare,
 }) => {
-  // Function to render content with emoji support
   const renderContent = (text: string) => {
-    // Simple emoji replacement for common ones in the prototype
     return text
       .replace(/:\)/g, "😊")
       .replace(/:\(/g, "😢")
@@ -41,7 +39,13 @@ const PostCard: React.FC<PostCardProps> = ({
       <div className="bg-gray-50 rounded-2xl shadow-md border  border-border p-4">
         <div className="flex items-start gap-3 mb-4">
           <div className="flex-shrink-0 ">
-            <Avatar src={avatar} alt={author} className="rounded-lg" size="md" fallback={author} />
+            <Avatar
+              src={avatar}
+              alt={author}
+              className="rounded-lg"
+              size="md"
+              fallback={author}
+            />
           </div>
 
           <div className="flex-1">

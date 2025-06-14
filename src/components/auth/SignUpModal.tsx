@@ -19,24 +19,22 @@ const SignUpModal = (props: SignUpModalProps) => {
 
   const handleSignUp = async () => {
     setError("");
-    
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    // For now, just show an alert since we don't have signup implementation
-    alert("Sign up functionality not fully implemented yet. Please use the test accounts to sign in.");
+    alert(
+      "Sign up functionality not fully implemented yet. Please use the test accounts to sign in."
+    );
   };
 
   const handleSignInClick = () => {
     switchModal();
   };
   return (
-    <Modal
-      isOpen={props.isOpen}
-      onClose={props.onClose}
-    >
+    <Modal isOpen={props.isOpen} onClose={props.onClose}>
       <Modal.Header className="p-0"></Modal.Header>
 
       <Modal.Content className="p-3 rounded-3xl ">
@@ -80,7 +78,9 @@ const SignUpModal = (props: SignUpModalProps) => {
             />
 
             {(error || authState.error) && (
-              <p className="text-red-500 text-sm text-center">{error || authState.error}</p>
+              <p className="text-red-500 text-sm text-center">
+                {error || authState.error}
+              </p>
             )}
 
             <Button

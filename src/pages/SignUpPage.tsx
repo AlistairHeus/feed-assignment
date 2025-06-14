@@ -15,18 +15,19 @@ const SignUpPage = () => {
 
   const handleSignUp = async () => {
     setError("");
-    
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    // For now, just show an alert since we don't have signup implementation
-    alert("Sign up functionality not fully implemented yet. Please use the test accounts to sign in.");
+    alert(
+      "Sign up functionality not fully implemented yet. Please use the test accounts to sign in."
+    );
   };
 
   const handleSignInClick = () => {
-    navigate('/signin');
+    navigate("/signin");
   };
 
   return (
@@ -72,7 +73,9 @@ const SignUpPage = () => {
             />
 
             {(error || authState.error) && (
-              <p className="text-red-500 text-sm text-center">{error || authState.error}</p>
+              <p className="text-red-500 text-sm text-center">
+                {error || authState.error}
+              </p>
             )}
 
             <Button
