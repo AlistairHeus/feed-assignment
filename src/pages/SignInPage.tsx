@@ -28,7 +28,7 @@ const SignInPage = () => {
     navigate('/signup');
   };
   return (
-    <PageTransition className="flex items-center justify-center p-4">
+    <PageTransition className="flex items-center justify-center min-h-screen p-4">
       <div className="p-3 pb-0 rounded-3xl bg-muted-dark relative w-full max-w-md">
         <div className="bg-popover rounded-3xl p-10">
           <div className="text-center ">

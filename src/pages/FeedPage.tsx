@@ -162,9 +162,9 @@ const FeedPage: React.FC = () => {
   };
 
   return (
-    <PageTransition className="min-h-screen bg-white">
+    <PageTransition className="min-h-screen bg-white ">
       <div
-        className="max-w-2xl mx-auto px-4 py-8"
+        className="max-w-2xl  mx-auto px-4 py-8 mt-20"
         onClick={handleFeedInteraction}
       >
         <div className="mb-8">

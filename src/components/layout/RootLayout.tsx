@@ -36,7 +36,7 @@ const RootLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar {...getNavbarProps()} />
-      <main className="pt-20">
+      <main className="">
         <Outlet />
       </main>
     </div>
