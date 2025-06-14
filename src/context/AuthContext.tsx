@@ -47,7 +47,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [authState, setAuthState] = useState<AuthState>(initialAuthState);
   const [modalState, setModalState] = useState<ModalState>(initialModalState);
-  const toast = useContext(React.createContext<{ showToast?: (message: string, type: string) => void }>({ showToast: undefined }));
+  const toast = useContext(
+    React.createContext<{
+      showToast?: (message: string, type: string) => void;
+    }>({ showToast: undefined })
+  );
 
   const login = async (credentials: LoginCredentials): Promise<boolean> => {
     setAuthState((prev) => ({ ...prev, isLoading: true, error: null }));
@@ -161,6 +165,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = () => {
+    if (authState.user?.id) {
+      const userPostsKey = `user_posts_${authState.user.id}`;
+      localStorage.removeItem(userPostsKey);
+    }
+    localStorage.removeItem("user_posts");
+
     localStorage.removeItem("auth_user");
     setAuthState(initialAuthState);
     if (toast.showToast) {

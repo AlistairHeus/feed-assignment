@@ -4,83 +4,66 @@
 
 @theme {
   
-  /* Container Widths */
   --container-md: 30rem;
 
 
-  /* Background Colors */
-  --color-background: 0 0% 100%;           /* White background */
-  --color-foreground: 0 0% 2%;          /* Almost black text */
+  --color-background: 0 0% 100%;           
+  --color-foreground: 0 0% 2%;         
   
-  /* Card Colors */
-  --color-card: 0 0% 100%;                 /* White card background */
-  --color-card-foreground: 0 0% 3.9%;     /* Card text */
+  --color-card: 0 0% 100%;                
+  --color-card-foreground: 0 0% 3.9%;    
   
-  /* Popover/Modal Colors */
-  --color-popover: 0 0% 100%;              /* White popover background */
-  --color-popover-foreground: 0 0% 3.9%;  /* Popover text */
+  --color-popover: 0 0% 100%;              
+  --color-popover-foreground: 0 0% 3.9%; 
   
-  /* Primary Colors (Indigo) */
-  --color-primary: 243 75% 59%;            /* Indigo-600 */
-  --color-primary-foreground: 0 0% 98%;    /* White text on primary */
+  --color-primary: 243 75% 59%;           
+  --color-primary-foreground: 0 0% 98%;   
   
-  /* Secondary Colors */
-  --color-secondary: 0 0% 96.1%;           /* Light neutral background */
-  --color-secondary-foreground: 0 0% 9%;   /* Dark text on secondary */
+  --color-secondary: 0 0% 96.1%;         
+  --color-secondary-foreground: 0 0% 9%;  
   
-  /* Muted Colors */
-  --color-muted: 0 0% 96.1%;               /* Light neutral for subtle backgrounds */
-  --color-muted-foreground: 0 0% 45.1%;   /* Muted text */
+  --color-muted: 0 0% 96.1%;               
+  --color-muted-foreground: 0 0% 45.1%;   
   --color-muted-dark: 0, 0%, 92%;
-  /* Accent Colors */
-  --color-accent: 0 0% 96.1%;              /* Light accent background */
-  --color-accent-foreground: 0 0% 9%;      /* Dark text on accent */
+  --color-accent: 0 0% 96.1%;             
+  --color-accent-foreground: 0 0% 9%;    
   
-  /* Destructive/Error Colors */
-  --color-destructive: 0 84.2% 60.2%;     /* Red-500 */
-  --color-destructive-foreground: 0 0% 98%; /* White text on destructive */
+  --color-destructive: 0 84.2% 60.2%;    
+  --color-destructive-foreground: 0 0% 98%; 
   
-  /* Border Colors */
-  --color-border: 0 0% 89.8%;             /* Light neutral border */
-  --color-input: 0 0% 89.8%;              /* Input border */
+  --color-border: 0 0% 89.8%;             
+  --color-input: 0 0% 89.8%;             
   
-  /* Ring Colors (Focus) */
-  --color-ring: 239 84% 67%;               /* Indigo focus ring */
+  --color-ring: 239 84% 67%;             
   
-  /* Chart Colors */
   --color-chart-1: 12 76% 61%;
   --color-chart-2: 173 58% 39%;
   --color-chart-3: 197 37% 24%;
   --color-chart-4: 43 74% 66%;
   --color-chart-5: 27 87% 67%;
   
-  /* === CUSTOM FONT SIZES === */
-  --font-size-xs: 0.75rem;       /* 12px */
-  --font-size-sm: 0.875rem;      /* 14px */
-  --font-size-base: 1rem;        /* 16px */
-  --font-size-lg: 1.125rem;      /* 18px */
-  --font-size-xl: 1.25rem;       /* 20px */
-  --font-size-2xl: 1.5rem;       /* 24px */
-  --font-size-3xl: 1.875rem;     /* 30px */
-  --font-size-4xl: 2.25rem;      /* 36px */
+  --font-size-xs: 0.75rem;       
+  --font-size-sm: 0.875rem;     
+  --font-size-base: 1rem;        
+  --font-size-lg: 1.125rem;      
+  --font-size-xl: 1.25rem;       
+  --font-size-2xl: 1.5rem;       
+  --font-size-3xl: 1.875rem;     
+  --font-size-4xl: 2.25rem;      
   
-  /* === SEMANTIC FONT SIZES === */
-  --font-size-caption: 0.75rem;      /* 12px - for captions */
-  --font-size-body: 0.875rem;        /* 14px - for body text */
-  --font-size-body-lg: 1rem;         /* 16px - for larger body text */
-  --font-size-heading-sm: 1.125rem;  /* 18px - for small headings */
-  --font-size-heading: 1.25rem;      /* 20px - for headings */
-  --font-size-heading-lg: 1.5rem;    /* 24px - for large headings */
-  --font-size-display: 2.25rem;      /* 36px - for display text */
+  --font-size-caption: 0.75rem;    
+  --font-size-body: 0.875rem;       
+  --font-size-body-lg: 1rem;        
+  --font-size-heading-sm: 1.125rem;
+  --font-size-heading: 1.25rem;    
+  --font-size-heading-lg: 1.5rem;   
+  --font-size-display: 2.25rem;  
   
-  /* === BORDER RADIUS === */
-  --radius: 0.5rem;                   /* 8px default radius */
+  --radius: 0.5rem;                  
   
-  /* === FONT FAMILIES === */
   --default-font-family: Inter, system-ui, sans-serif;
 }
 
-/* === UTILITY CLASSES FOR SEMANTIC COLORS === */
 .bg-background { background-color: hsl(var(--color-background)); }
 .text-foreground { color: hsl(var(--color-foreground)); }
 
@@ -113,34 +96,31 @@
 
 .ring-ring { --tw-ring-color: hsl(var(--color-ring)); }
 
-/* === HIDE SCROLLBARS === */
-/* Hide scrollbar for Chrome, Safari and Opera */
+
 ::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 html {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; 
+  scrollbar-width: none;  
 }
 
 body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
-/* Hide scrollbars for all elements */
+
 * {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
 *::-webkit-scrollbar {
   display: none;
 }
 
-/* Ensure scroll functionality is maintained */
 html, body {
   overflow: auto;
 }

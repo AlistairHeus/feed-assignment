@@ -6,9 +6,9 @@ interface PageTransitionProps {
   className?: string;
 }
 
-const PageTransition: React.FC<PageTransitionProps> = ({ 
-  children, 
-  className = "" 
+const PageTransition: React.FC<PageTransitionProps> = ({
+  children,
+  className = "",
 }) => {
   return (
     <motion.div
@@ -16,11 +16,11 @@ const PageTransition: React.FC<PageTransitionProps> = ({
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      transition={{ 
+      transition={{
         type: "spring",
         stiffness: 260,
         damping: 20,
-        duration: 0.3 
+        duration: 0.2,
       }}
     >
       {children}
