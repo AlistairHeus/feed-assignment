@@ -1,36 +1,51 @@
 import React, { useState } from "react";
-import Button from "../components/ui/Button";
 import { useAuth } from "../hooks/useAuth";
 import { SignInModal, SignUpModal } from "../components/auth";
+import RichTextEditor from "../components/ui/RichTextEditor";
+import PostCard from "../components/ui/PostCard";
 
 const FeedPage: React.FC = () => {
   const { authState, modalState, openModal, closeModal } = useAuth();
   const { user, isAuthenticated } = authState;
-  const [posts, setPosts] = useState([
+  const [posts, setPosts] = useState<
+    Array<{
+      id: number;
+      author: string;
+      content: string;
+      timestamp: string;
+      avatar?: string;
+    }>
+  >([
     {
       id: 1,
-      author: "Sample User 1",
-      content: "This is a sample post content. In the next phase, we'll implement real post creation and display functionality.",
-      timestamp: "2 hours ago"
+      author: "Theresa Webb",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisl ut aliquip ex ea commodo consequat. 😊",
+      timestamp: "5 mins ago",
+      avatar: "/theresa.jpg",
     },
     {
       id: 2,
-      author: "Sample User 2", 
-      content: "This is a sample post content. In the next phase, we'll implement real post creation and display functionality.",
-      timestamp: "2 hours ago"
+      author: "John Doe",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisl ut aliquip ex ea commodo consequat. 👍",
+      timestamp: "5 mins ago",
+      avatar: "/johndoe.jpg",
     },
     {
       id: 3,
-      author: "Sample User 3",
-      content: "This is a sample post content. In the next phase, we'll implement real post creation and display functionality.", 
-      timestamp: "2 hours ago"
-    }
+      author: "Jane Doe",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisl ut aliquip ex ea commodo consequat. 💀",
+      timestamp: "5 mins ago",
+      avatar: "/janedoe.jpg",
+    },
   ]);
   const [newPostContent, setNewPostContent] = useState("");
 
   const handleAuthRequired = (action: string) => {
     if (!isAuthenticated) {
-      openModal('signin');
+      openModal("signin");
     } else {
       alert(`${action} functionality not implemented yet`);
     }
@@ -38,7 +53,7 @@ const FeedPage: React.FC = () => {
 
   const handlePublishPost = () => {
     if (!isAuthenticated) {
-      openModal('signin');
+      openModal("signin");
       return;
     }
 
@@ -47,7 +62,8 @@ const FeedPage: React.FC = () => {
         id: posts.length + 1,
         author: user?.username || user?.email || "Anonymous",
         content: newPostContent,
-        timestamp: "Just now"
+        timestamp: "Just now",
+        avatar: undefined,
       };
       setPosts([newPost, ...posts]);
       setNewPostContent("");
@@ -55,107 +71,44 @@ const FeedPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-4">
-        <div className="w-full max-w-2xl">
-          {/* Welcome Section */}
-          <div className="text-center mb-8 pt-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">
-              Welcome to foo-rum
-            </h1>
-            <p className="text-muted-foreground">
-              Share your thoughts with the community
-            </p>
-            {user && (
-              <div className="mt-4 flex items-center justify-center gap-4">
-                <span className="text-sm text-muted-foreground">
-                  Logged in as: <span className="font-medium text-foreground">{user.email}</span>
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Post Editor */}
-          <div className="bg-popover rounded-xl p-6 mb-6 border border-border">
-            <h2 className="text-lg font-semibold text-popover-foreground mb-4">
-              Create a Post
-            </h2>
-            <div className="space-y-4">
-              <textarea
-                placeholder="What's on your mind?"
-                value={newPostContent}
-                onChange={(e) => setNewPostContent(e.target.value)}
-                className="w-full p-3 bg-background border border-border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground"
-                rows={4}
-              />
-              <div className="flex justify-end">
-                <Button 
-                  variant="primary"
-                  onClick={handlePublishPost}
-                >
-                  Publish Post
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Feed */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-foreground">Recent Posts</h2>
-            
-            {/* Dynamic Posts */}
-            {posts.map((post) => (
-              <div key={post.id} className="bg-popover rounded-xl p-6 border border-border">
-                <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-primary-foreground font-medium">
-                      {post.author.charAt(0).toUpperCase()}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-popover-foreground">{post.author}</h3>
-                    <p className="text-sm text-muted-foreground">{post.timestamp}</p>
-                  </div>
-                </div>
-                <p className="text-popover-foreground mb-4">
-                  {post.content}
-                </p>
-                <div className="flex gap-4">
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => handleAuthRequired("Like")}
-                  >
-                    👍 Like
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => handleAuthRequired("Comment")}
-                  >
-                    💬 Comment
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => handleAuthRequired("Share")}
-                  >
-                    🔗 Share
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Auth Modals */}
-          <SignInModal 
-            isOpen={modalState.isOpen && modalState.type === 'signin'}
-            onClose={closeModal}
-          />
-          <SignUpModal 
-            isOpen={modalState.isOpen && modalState.type === 'signup'}
-            onClose={closeModal}
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-2xl mx-auto px-4 py-8">
+        {/* Rich Text Editor */}
+        <div className="mb-8">
+          <RichTextEditor
+            value={newPostContent}
+            onChange={setNewPostContent}
+            onSubmit={handlePublishPost}
+            placeholder="How are you feeling today?"
           />
         </div>
+
+        {/* Posts Feed */}
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <PostCard
+              key={post.id}
+              author={post.author}
+              timestamp={post.timestamp}
+              content={post.content}
+              avatar={post.avatar}
+              onLike={() => handleAuthRequired("Like")}
+              onComment={() => handleAuthRequired("Comment")}
+              onShare={() => handleAuthRequired("Share")}
+            />
+          ))}
+        </div>
+
+        {/* Auth Modals */}
+        <SignInModal
+          isOpen={modalState.isOpen && modalState.type === "signin"}
+          onClose={closeModal}
+        />
+        <SignUpModal
+          isOpen={modalState.isOpen && modalState.type === "signup"}
+          onClose={closeModal}
+        />
+      </div>
     </div>
   );
 };
