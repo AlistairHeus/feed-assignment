@@ -6,7 +6,6 @@ import { SignInModal, SignUpModal } from "../components/auth";
 import RichTextEditor from "../components/ui/RichTextEditor";
 import PostCard from "../components/ui/PostCard";
 import { PageTransition } from "../components/layout";
-import { motion } from "framer-motion";
 
 const FeedPage: React.FC = () => {
   const { authState, modalState, openModal, closeModal } = useAuth();
@@ -180,34 +179,12 @@ const FeedPage: React.FC = () => {
           />
         </div>
 
-        <motion.div
-          className="space-y-6"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-            hidden: {},
-          }}
-        >
-          {posts.map((post, _index) => (
-            <motion.div
+        <div className="space-y-6">
+          {posts.map((post, index) => (
+            <div 
               key={post.id}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    type: "spring",
-                    damping: 15,
-                    stiffness: 100,
-                  },
-                },
-              }}
+              className="post-item"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <PostCard
                 author={post.author}
@@ -219,9 +196,9 @@ const FeedPage: React.FC = () => {
                 onComment={() => handleAuthRequired("Comment")}
                 onShare={() => handleAuthRequired("Share")}
               />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         <SignInModal
           isOpen={modalState.isOpen && modalState.type === "signin"}

@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { cn } from "../../utils/cn";
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -10,21 +10,26 @@ const PageTransition: React.FC<PageTransitionProps> = ({
   children,
   className = "",
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+  
+    const element = ref.current;
+    if (element) {
+      element.classList.add("animate-slide-in-down");
+    }
+
+    return () => {
+    };
+  }, []);
+
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{
-        type: "spring",
-        stiffness: 260,
-        damping: 20,
-        duration: 0.2,
-      }}
+    <div
+      ref={ref}
+      className={cn(className)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 

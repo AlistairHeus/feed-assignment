@@ -1,22 +1,21 @@
 import {
   Bold,
-  Mic,
   Code,
   Italic,
   List,
   ListOrdered,
-  Video,
+  Mic,
   Plus,
   Quote,
   SendHorizonal,
   Smile,
   Underline,
+  Video,
 } from "lucide-react";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useToast } from "../../context/ToastContext";
 import Button from "./Button";
 import Select from "./Select";
-import { motion, AnimatePresence } from "framer-motion";
-import { useToast } from "../../context/ToastContext";
 
 interface RichTextEditorProps {
   value: string;
@@ -308,7 +307,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       <div className="">
         <div className="p-4 flex items-start gap-3">
           <div className="relative">
-            <motion.button
+            <button
               onClick={() => {
                 if (!isAuthenticated && openAuthModal) {
                   openAuthModal();
@@ -316,49 +315,37 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                   setShowEmojiPicker(!showEmojiPicker);
                 }
               }}
-              className="flex items-center justify-center w-8 h-8 text-foreground hover:bg-gray-100 rounded transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              className="flex items-center justify-center w-8 h-8 text-foreground hover:bg-gray-100 rounded  hover-scale active-scale transition-transform"
             >
               {selectedEmoji ? (
-                <motion.span
-                  className="text-lg"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                <span
+                  className="text-lg animate-scale-in"
                 >
                   {selectedEmoji}
-                </motion.span>
+                </span>
               ) : (
                 <Smile size={20} />
               )}
-            </motion.button>
+            </button>
 
-            <AnimatePresence>
-              {showEmojiPicker && (
-                <div
-                  ref={emojiPickerRef}
-                  className="absolute top-8 left-0 z-10 bg-white border border-gray-200 rounded-lg shadow-lg p-3 w-64 max-h-48 overflow-y-auto"
-                >
-                  <div className="grid grid-cols-8 gap-1">
-                    {emojis.map((emoji, index) => (
-                      <motion.button
-                        key={index}
-                        onClick={() => handleEmojiClick(emoji)}
-                        className="p-1 hover:bg-gray-100 rounded text-lg"
-                        whileHover={{
-                          scale: 1.3,
-                          transition: { duration: 0.2 },
-                        }}
-                        initial={{ scale: 1 }}
-                      >
-                        {emoji}
-                      </motion.button>
-                    ))}
-                  </div>
+            {showEmojiPicker && (
+              <div
+                ref={emojiPickerRef}
+                className="absolute top-8 left-0 z-10 bg-white border border-gray-200 rounded-lg shadow-lg p-3 w-64 max-h-48 overflow-y-auto animate-scale-in"
+              >
+                <div className="grid grid-cols-8 gap-1">
+                  {emojis.map((emoji, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleEmojiClick(emoji)}
+                      className="p-1 hover:bg-gray-100 rounded text-lg hover-scale transition-transform"
+                    >
+                      {emoji}
+                    </button>
+                  ))}
                 </div>
-              )}
-            </AnimatePresence>
+              </div>
+            )}
           </div>
           <textarea
             value={value}
@@ -418,18 +405,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               }}
               disabled={!value.trim()}
             >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9, rotate: 15 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
+              <div className="hover-scale active-scale transition-transform">
                 <SendHorizonal
                   size={25}
                   fill="#5a67d8"
                   stroke="white"
                   strokeWidth={1}
                 />
-              </motion.div>
+              </div>
             </Button>
           </div>
         </div>

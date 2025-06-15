@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useAnimation } from "../../hooks/useAnimation";
+import { cn } from "../../utils/cn";
 
 export interface ToastProps {
   message: string;
@@ -26,6 +27,15 @@ const Toast: React.FC<ToastProps> = ({
     }
   }, [isVisible, duration, onClose]);
 
+  const { shouldRender, animationClass, ref } = useAnimation(
+    isVisible,
+    {
+      enterClass: "animate-slide-in-up",
+      exitClass: "animate-slide-out-down",
+      duration: 300
+    }
+  );
+
   const getBackgroundColor = () => {
     switch (type) {
       case "success":
@@ -39,32 +49,25 @@ const Toast: React.FC<ToastProps> = ({
     }
   };
 
+  if (!shouldRender) return null;
+
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          className={`fixed bottom-4 right-4 px-4 py-3 rounded-lg shadow-lg ${getBackgroundColor()} text-white flex items-center justify-between min-w-[250px] max-w-md z-50`}
-          initial={{ opacity: 0, y: 50, scale: 0.3 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.5 }}
-          transition={{ 
-            type: "spring", 
-            stiffness: 500, 
-            damping: 30 
-          }}
-        >
-          <span className="pr-2">{message}</span>
-          <motion.button
-            onClick={onClose}
-            className="text-white p-1 rounded-full hover:bg-white/20"
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <X size={16} />
-          </motion.button>
-        </motion.div>
+    <div
+      ref={ref}
+      className={cn(
+        "fixed bottom-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white flex items-center justify-between min-w-[250px] max-w-md z-50",
+        getBackgroundColor(),
+        animationClass
       )}
-    </AnimatePresence>
+    >
+      <span className="pr-2">{message}</span>
+      <button
+        onClick={onClose}
+        className="text-white p-1 rounded-full hover:bg-white/20 hover-scale active-scale transition-transform"
+      >
+        <X size={16} />
+      </button>
+    </div>
   );
 };
 

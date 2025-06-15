@@ -1,8 +1,7 @@
 import { Heart, MessageSquareMore, Send } from "lucide-react";
 import React from "react";
-import Button from "./Button";
 import Avatar from "./Avatar";
-import { motion } from "framer-motion";
+import Button from "./Button";
 
 interface PostCardProps {
   author: string;
@@ -36,23 +35,8 @@ const PostCard: React.FC<PostCardProps> = ({
   };
 
   return (
-    <motion.div 
-      className="mb-4"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        duration: 0.3,
-        ease: "easeOut"
-      }}
-    >
-      <motion.div 
-        className="bg-gray-50 rounded-2xl shadow-md border border-border p-4"
-        whileHover={{ 
-          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-          y: -2
-        }}
-        transition={{ duration: 0.2 }}
-      >
+    <div className="mb-4 animate-slide-in-up">
+      <div className="bg-gray-50 rounded-2xl shadow-md border border-border p-4 transition-all hover:shadow-lg ">
         <div className="flex items-start gap-3 mb-4">
           <div className="flex-shrink-0 ">
             <Avatar
@@ -72,13 +56,9 @@ const PostCard: React.FC<PostCardProps> = ({
 
         <div className="flex items-start gap-3 mb-4">
           <div className="flex-shrink-0">
-            <motion.div 
-              className="w-10 h-10 flex items-center justify-center"
-              whileHover={{ scale: 1.2 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
+            <div className="w-10 h-10 flex items-center justify-center hover-scale transition-transform">
               <span className="text-lg">{emoji}</span>
-            </motion.div>
+            </div>
           </div>
           <div className="flex-1">
             <p className="text-gray-800 text-sm leading-relaxed">
@@ -86,7 +66,7 @@ const PostCard: React.FC<PostCardProps> = ({
             </p>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <div className="flex items-center gap-6 px-4 py-2">
         <Button
@@ -120,7 +100,7 @@ const PostCard: React.FC<PostCardProps> = ({
           <Send size={18} strokeWidth={1} />
         </Button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
